@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2019 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: xene.vsprops                                                   -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 5/22/2019                                                      -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="xene">
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XENE_GROUP"
+        Value=""
+    />
+    <UserMacro
+        Name="XENE_NAME"
+        Value="xene"
+    />
+    <UserMacro
+        Name="XENE_VERSION"
+        Value=""
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XENE_DIR"
+        Value="$(XENE_GROUP)$(XENE_NAME)$(XENE_VERSION)"
+    />
+    <UserMacro
+        Name="XENE_SOURCE_DIR"
+        Value="$(SOURCE_ROOT_DIR)/$(XENE_DIR)/source"
+    />
+    <UserMacro
+        Name="XENE_BUILD_DIR"
+        Value="$(SOURCE_BUILD_DIR)/$(XENE_DIR)/build"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XENE_BUILD"
+        Value="$(XENE_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="XENE_OBJ"
+        Value="$(XENE_BUILD)/obj/$(ProjectName)"
+    />
+    <UserMacro
+        Name="XENE_LIB"
+        Value="$(XENE_BUILD)/lib"
+    />
+    <UserMacro
+        Name="XENE_BIN"
+        Value="$(XENE_BUILD)/bin"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XENE_DEFINES"
+        Value=""
+    />
+    <UserMacro
+        Name="XENE_DEBUG_DEFINES"
+        Value="$(XENE_DEFINES)"
+    />
+    <UserMacro
+        Name="XENE_RELEASE_DEFINES"
+        Value="$(XENE_DEFINES)"
+    />
+
+    <!--===============================================-->
+  
+    <UserMacro
+        Name="XENE_INCLUDE_DIRS"
+        Value="$(XENE_SOURCE_DIR)"
+    />
+    <UserMacro
+        Name="XENE_LIB_DIRS"
+        Value="$(XENE_LIB)"
+    />
+    <UserMacro
+        Name="XENE_LIBS"
+        Value="libxene.lib"
+    />
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

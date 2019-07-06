@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--========================================================================-->
+<!-- Copyright (c) 1988-2019 $organization$                                 -->
+<!--                                                                        -->
+<!-- This software is provided by the author and contributors ``as is''     -->
+<!-- and any express or implied warranties, including, but not limited to,  -->
+<!-- the implied warranties of merchantability and fitness for a particular -->
+<!-- purpose are disclaimed. In no event shall the author or contributors   -->
+<!-- be liable for any direct, indirect, incidental, special, exemplary,    -->
+<!-- or consequential damages (including, but not limited to, procurement   -->
+<!-- of substitute goods or services; loss of use, data, or profits; or     -->
+<!-- business interruption) however caused and on any theory of liability,  -->
+<!-- whether in contract, strict liability, or tort (including negligence   -->
+<!-- or otherwise) arising in any way out of the use of this software,      -->
+<!-- even if advised of the possibility of such damage.                     -->
+<!--                                                                        -->
+<!--   File: xos.vsprops                                                    -->
+<!--                                                                        -->
+<!-- Author: $author$                                                       -->
+<!--   Date: 5/22/2019                                                      -->
+<!--========================================================================-->
+<VisualStudioPropertySheet
+    ProjectType="Visual C++"
+    Version="8.00"
+    Name="xos">
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XOS_GROUP"
+        Value=""
+    />
+    <UserMacro
+        Name="XOS_NAME"
+        Value="xos"
+    />
+    <UserMacro
+        Name="XOS_VERSION"
+        Value=""
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XOS_DIR"
+        Value="$(XOS_GROUP)$(XOS_NAME)$(XOS_VERSION)"
+    />
+    <UserMacro
+        Name="XOS_SOURCE_DIR"
+        Value="$(SOURCE_ROOT_DIR)/$(XOS_DIR)/source"
+    />
+    <UserMacro
+        Name="XOS_BUILD_DIR"
+        Value="$(SOURCE_BUILD_DIR)/$(XOS_DIR)/build"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XOS_BUILD"
+        Value="$(XOS_BUILD_DIR)/$(PlatformName)/$(VCVersion)/$(ConfigurationName)"
+    />
+    <UserMacro
+        Name="XOS_OBJ"
+        Value="$(XOS_BUILD)/obj/$(ProjectName)"
+    />
+    <UserMacro
+        Name="XOS_LIB"
+        Value="$(XOS_BUILD)/lib"
+    />
+    <UserMacro
+        Name="XOS_BIN"
+        Value="$(XOS_BUILD)/bin"
+    />
+
+    <!--===============================================-->
+
+    <UserMacro
+        Name="XOS_DEFINES"
+        Value=""
+    />
+    <UserMacro
+        Name="XOS_DEBUG_DEFINES"
+        Value="$(XOS_DEFINES);DEBUG_BUILD"
+    />
+    <UserMacro
+        Name="XOS_RELEASE_DEFINES"
+        Value="$(XOS_DEFINES);RELEASE_BUILD"
+    />
+
+    <!--===============================================-->
+  
+    <UserMacro
+        Name="XOS_INCLUDE_DIRS"
+        Value="$(XOS_SOURCE_DIR);$(XENE_INCLUDE_DIRS);$(XOS_SOURCE_DIR)/thirdparty/gnu/getopt;$(XOS_SOURCE_DIR)/xos/platform/microsoft/windows/posix;$(XOS_SOURCE_DIR)/xos/platform/microsoft/windows/apple"
+    />
+    <UserMacro
+        Name="XOS_LIB_DIRS"
+        Value="$(XOS_LIB);$(XENE_LIB_DIRS)"
+    />
+    <UserMacro
+        Name="XOS_LIBS"
+        Value="libxos.lib $(XENE_LIBS)"
+    />
+
+    <!--===============================================-->
+
+</VisualStudioPropertySheet>

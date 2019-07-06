@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{1D905AAE-4086-4231-AE17-801E7CFA1E4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{CFF05EB2-EA28-442A-B828-5DE41B472546}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "properties", "properties", "{14449C03-EFDA-4515-A363-FF4CD61241AF}"
+	ProjectSection(SolutionItems) = preProject
+		..\vcproj.vsprops = ..\vcproj.vsprops
+		vcversion.vsprops = vcversion.vsprops
+		..\xene.vsprops = ..\xene.vsprops
+		..\xos.vsprops = ..\xos.vsprops
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxos", "libxos\libxos.vcproj", "{8A126A87-B153-42BE-ACAA-7306BE71EBF3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xos", "xos\xos.vcproj", "{6B1EF8B9-0C04-4269-9918-99FBB7E77874}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mutex", "mutex\mutex.vcproj", "{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "semaphore", "semaphore\semaphore.vcproj", "{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Debug|Win32.Build.0 = Debug|Win32
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Debug|x64.ActiveCfg = Debug|Win32
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Debug|x64.Build.0 = Debug|Win32
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Release|Win32.ActiveCfg = Release|Win32
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Release|Win32.Build.0 = Release|Win32
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Release|x64.ActiveCfg = Release|x64
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3}.Release|x64.Build.0 = Release|x64
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874}.Debug|Win32.Build.0 = Debug|Win32
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874}.Debug|x64.ActiveCfg = Debug|Win32
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874}.Release|Win32.ActiveCfg = Release|Win32
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874}.Release|Win32.Build.0 = Release|Win32
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874}.Release|x64.ActiveCfg = Release|Win32
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}.Debug|Win32.Build.0 = Debug|Win32
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}.Debug|x64.ActiveCfg = Debug|Win32
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}.Release|Win32.ActiveCfg = Release|Win32
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}.Release|Win32.Build.0 = Release|Win32
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A}.Release|x64.ActiveCfg = Release|Win32
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}.Debug|Win32.Build.0 = Debug|Win32
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}.Debug|x64.ActiveCfg = Debug|Win32
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}.Release|Win32.ActiveCfg = Release|Win32
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}.Release|Win32.Build.0 = Release|Win32
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C}.Release|x64.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B1EF8B9-0C04-4269-9918-99FBB7E77874} = {1D905AAE-4086-4231-AE17-801E7CFA1E4A}
+		{D502C3CC-8E4D-4ADB-B16D-F7F9345ECE0A} = {1D905AAE-4086-4231-AE17-801E7CFA1E4A}
+		{AFFCDE6E-1AAD-4850-A062-8FC982BA5B4C} = {1D905AAE-4086-4231-AE17-801E7CFA1E4A}
+		{8A126A87-B153-42BE-ACAA-7306BE71EBF3} = {CFF05EB2-EA28-442A-B828-5DE41B472546}
+	EndGlobalSection
+EndGlobal
