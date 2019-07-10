@@ -44,12 +44,12 @@ public:
     typedef typename Implements::chars_t chars_t;
     typedef typename Implements::char_t char_t;
 
-    MainT(): _run(0) {
+    MainT(): _run(0), _windowsRun(0) {
     }
     virtual ~MainT() {
     }
 private:
-    MainT(const MainT& copy): _run(0) {
+    MainT(const MainT& copy): _run(0), _windowsRun(0) {
     }
 
 protected:
@@ -75,7 +75,21 @@ protected:
         int err = 0;
         return err;
     }
+    int (Derives::*_windowsRun)(int argc, char_t**argv, char_t** env);
     virtual int WindowsRun(int argc, char_t**argv, char_t** env) {
+        int err = 0;
+        if ((_windowsRun)) {
+            err = (this->*_windowsRun)(argc, argv, env);
+        } else {
+            err = WindowsCrtRun(argc, argv, env);
+        }
+        return err;
+    }
+    virtual int WindowsCrtRun(int argc, char_t**argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
+    virtual int WindowsNativeRun(int argc, char_t**argv, char_t** env) {
         int err = 0;
         return err;
     }
@@ -101,6 +115,22 @@ protected:
      int argc, char_t**argv, char_t**env) {
         int err = 0;
         _run = &Derives::PosixRun;
+        return err;
+    }
+    virtual int OnNativeRuntimeOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        _windowsRun = &Derives::WindowsNativeRun;
+        return err;
+    }
+    virtual int OnClibRuntimeOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        _windowsRun = &Derives::WindowsCrtRun;
         return err;
     }
 }; /// class _EXPORT_CLASS MainT

@@ -30,9 +30,155 @@ namespace platform {
 namespace posix {
 namespace microsoft {
 namespace windows {
-namespace crt {
 
 namespace internal {
+template 
+<typename TStartAddress, 
+ typename TParameter,
+ typename TResult, 
+ class TExtends = mt::posix::Thread>
+///////////////////////////////////////////////////////////////////////
+///  Class: ThreadT
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS ThreadT: public TExtends {
+public:
+    typedef TExtends Extends;
+    typedef TStartAddress StartAddress;
+    typedef TParameter Parameter;
+    typedef TResult Result;
+    typedef typename Extends::Attached Attached;
+    typedef typename Extends::UnattachedT UnattachedT;
+    static const UnattachedT Unattached = Extends::Unattached;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    ThreadT(StartAddress startAddress, Parameter parameter)
+    : Extends(((Attached)Unattached), false, false), 
+      _startAddress(startAddress), _parameter(parameter) {
+    }
+private:
+    ThreadT(const ThreadT& copy) {
+        XOS_MT_THREAD_UNEXPECTED();
+    }
+protected:
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual void Run() {
+        if ((_startAddress)) {
+            Result result = (*_startAddress)(_parameter);
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    StartAddress _startAddress;
+    Parameter _parameter;
+}; /// class _EXPORT_CLASS ThreadT
+typedef DWORD (WINAPI *StartAddress)(LPVOID);
+typedef ThreadT<StartAddress, LPVOID, DWORD> Thread;
+} /// namespace internal
+
+///////////////////////////////////////////////////////////////////////
+///  Class: ThreadT
+///////////////////////////////////////////////////////////////////////
+template 
+<class TThread, class TImplements = Handle::Implements, class TExtends = Handle>
+class _EXPORT_CLASS ThreadT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+    typedef typename TThread::StartAddress StartAddress;
+    typedef typename TThread::Parameter Parameter;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    ThreadT(StartAddress startAddress, Parameter parameter, bool initiallySuspeneded)
+    : _thread(startAddress, parameter) {
+        if (!(_thread.Create(initiallySuspeneded))) {
+            throw CreateException(CreateFailed);
+        }
+    }
+    ThreadT(StartAddress startAddress, Parameter parameter)
+    : _thread(startAddress, parameter) {
+        if (!(_thread.Create())) {
+            throw CreateException(CreateFailed);
+        }
+    }
+    virtual ~ThreadT() {
+    }
+private:
+    ThreadT(const Thread& copy) {
+        XOS_MT_THREAD_UNEXPECTED();
+    }
+public:
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    virtual BOOL CloseHandle() {
+        BOOL success = (_thread.Destroy())?(TRUE):(FALSE);
+        return success;
+    }
+    virtual DWORD WaitForSingleObject(DWORD dwMilliseconds) {
+        DWORD dwStatus = WAIT_FAILED;
+        ::xos::JoinStatus status = ::xos::JoinFailed;
+
+        if (INFINITE != (dwMilliseconds)) {
+            if (0 < (dwMilliseconds)) {
+                status = _thread.TimedJoin(dwMilliseconds);
+            } else {
+                status = _thread.TryJoin();
+            }
+        } else {
+            status = _thread.UntimedJoin();
+        }
+        switch (status) {
+        case ::xos::JoinSuccess:
+            dwStatus = WAIT_OBJECT_0;
+            break;
+        case ::xos::JoinBusy:
+            dwStatus = WAIT_TIMEOUT;
+            break;
+        case ::xos::JoinInterrupted:
+            dwStatus = WAIT_ABANDONED;
+            break;
+        }
+        return dwStatus;
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+protected:
+    TThread _thread;
+}; /// class _EXPORT_CLASS ThreadT
+
+typedef ThreadT<internal::Thread> ThreadExtends;
+typedef ThreadExtends::Implements ThreadImplements;
+///////////////////////////////////////////////////////////////////////
+///  Class: Thread
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS Thread: virtual public ThreadImplements, public ThreadExtends {
+public:
+    typedef ThreadImplements Implements;
+    typedef ThreadExtends Extends;
+    typedef typename Extends::StartAddress StartAddress;
+    typedef typename Extends::Parameter Parameter;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    Thread(StartAddress startAddress, Parameter parameter, bool initiallySuspeneded)
+    : Extends(startAddress, parameter, initiallySuspeneded) {
+    }
+    Thread(StartAddress startAddress, Parameter parameter)
+    : Extends(startAddress, parameter) {
+    }
+    virtual ~Thread() {
+    }
+private:
+    Thread(const Thread& copy): Extends(NULL, NULL) {
+        XOS_MT_THREAD_UNEXPECTED();
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+}; /// class _EXPORT_CLASS Thread
+
+namespace crt {
+namespace internal {
+/*
 typedef mt::posix::Thread ThreadExtends;
 class _EXPORT_CLASS Thread: public ThreadExtends {
 public:
@@ -48,14 +194,18 @@ private:
 protected:
     virtual void Run() {
         if ((_startAddress)) {
-            (*_startAddress)(_arglist);
+            unsigned result = (*_startAddress)(_arglist);
         }
     }
     unsigned ( __stdcall *_startAddress )( void * );
     void *_arglist;
 }; /// class _EXPORT_CLASS Thread
+*/
+typedef unsigned (__stdcall *StartAddress)(void*);
+typedef windows::internal::ThreadT<StartAddress, void*, unsigned> Thread;
 } /// namespace internal
 
+/*
 typedef Handle::Implements ThreadImplements;
 typedef Handle ThreadExtends;
 ///////////////////////////////////////////////////////////////////////
@@ -123,8 +273,37 @@ public:
 protected:
     internal::Thread _thread;
 }; /// class _EXPORT_CLASS Thread
-
+*/
+typedef ThreadT<internal::Thread> ThreadExtends;
+typedef ThreadExtends::Implements ThreadImplements;
+///////////////////////////////////////////////////////////////////////
+///  Class: Thread
+///////////////////////////////////////////////////////////////////////
+class _EXPORT_CLASS Thread: virtual public ThreadImplements, public ThreadExtends {
+public:
+    typedef ThreadImplements Implements;
+    typedef ThreadExtends Extends;
+    typedef typename Extends::StartAddress StartAddress;
+    typedef typename Extends::Parameter Parameter;
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    Thread(StartAddress startAddress, Parameter parameter, bool initiallySuspeneded)
+    : Extends(startAddress, parameter, initiallySuspeneded) {
+    }
+    Thread(StartAddress startAddress, Parameter parameter)
+    : Extends(startAddress, parameter) {
+    }
+    virtual ~Thread() {
+    }
+private:
+    Thread(const Thread& copy): Extends(NULL, NULL) {
+        XOS_MT_THREAD_UNEXPECTED();
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+}; /// class _EXPORT_CLASS Thread
 } /// namespace crt
+
 } /// namespace windows
 } /// namespace microsoft
 } /// namespace posix

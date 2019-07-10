@@ -46,12 +46,34 @@
     XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_RESULT, \
     XOS_APP_CONSOLE_OS_MAIN_OS_OPTVAL_C}, \
 
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPT "runtime-library"
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_RESULT 0
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_NATIVE_C "n" 
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_NATIVE_S "native" 
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_CLIB_C "c" 
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_CLIB_S "clib" 
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG \
+    "{ " "(" XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_NATIVE_C ")" XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_NATIVE_S \
+    " | " "(" XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_CLIB_C ")" XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_CLIB_S \
+    " }" 
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTUSE ""
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTVAL_S "r:"
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTVAL_C 'r'
+#define XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTION \
+   {XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPT, \
+    XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_REQUIRED, \
+    XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_RESULT, \
+    XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTVAL_C}, \
+
 #define XOS_APP_CONSOLE_OS_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_OS_MAIN_OS_OPTVAL_S \
+   XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTVAL_S \
    XOS_CONSOLE_MAIN_OPTIONS_CHARS
 
 #define XOS_APP_CONSOLE_OS_MAIN_OPTIONS_OPTIONS \
    XOS_APP_CONSOLE_OS_MAIN_OS_OPTION \
+   XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTION \
    XOS_CONSOLE_MAIN_OPTIONS_OPTIONS
 
 #define XOS_APP_CONSOLE_OS_MAIN_ARGS 0
@@ -137,6 +159,44 @@ protected:
         }
         return err;
     }
+    virtual int OnNativeRuntimeOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
+    virtual int OnClibRuntimeOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
+    virtual int OnRuntimeOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            string_t arg(optarg);
+            if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_NATIVE_C)) 
+                || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_NATIVE_S))) {
+                err = OnNativeRuntimeOption
+                (optval, optarg, optname, optind, argc, argv, env);
+            } else {
+                if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_CLIB_C)) 
+                    || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG_CLIB_S))) {
+                    err = OnClibRuntimeOption
+                    (optval, optarg, optname, optind, argc, argv, env);
+                } else {
+                    err = Extends::OnInvalidOptionArg
+                    (optval, optarg, optname, optind, argc, argv, env);
+                }
+            }
+        }
+        return err;
+    }
     virtual int OnOption
     (int optval, const char_t* optarg,
      const char_t* optname, int optind,
@@ -145,6 +205,10 @@ protected:
         switch(optval) {
         case XOS_APP_CONSOLE_OS_MAIN_OS_OPTVAL_C:
             err = OnOsOption
+            (optval, optarg, optname, optind, argc, argv, env);
+            break;
+        case XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTVAL_C:
+            err = OnRuntimeOption
             (optval, optarg, optname, optind, argc, argv, env);
             break;
         default:
@@ -160,6 +224,10 @@ protected:
         case XOS_APP_CONSOLE_OS_MAIN_OS_OPTVAL_C:
             optarg = XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG;
             chars = XOS_APP_CONSOLE_OS_MAIN_OS_OPTUSE;
+            break;
+        case XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTVAL_C:
+            optarg = XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTARG;
+            chars = XOS_APP_CONSOLE_OS_MAIN_RUNTIME_OPTUSE;
             break;
         default:
             chars = Extends::OptionUsage(optarg, longopt);

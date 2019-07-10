@@ -36,6 +36,31 @@ namespace crt {
 
 #if !defined(WINDOWS)
 /// 
+/// windows threads
+/// ...
+HANDLE WINAPI CreateThread(
+  _In_opt_  LPSECURITY_ATTRIBUTES  lpThreadAttributes,
+  _In_      SIZE_T                 dwStackSize,
+  _In_      LPTHREAD_START_ROUTINE lpStartAddress,
+  _In_opt_  LPVOID                 lpParameter,
+  _In_      DWORD                  dwCreationFlags,
+  _Out_opt_ LPDWORD                lpThreadId
+) {
+    bool initiallySuspended = (CREATE_SUSPENDED == (dwCreationFlags & CREATE_SUSPENDED));
+    try {
+        ::xos::platform::posix::microsoft::windows::Thread* thread = 0;
+
+        if ((thread = new ::xos::platform::posix::microsoft::windows::Thread(lpStartAddress, lpParameter, initiallySuspended))) {
+            return ((HANDLE)thread);
+        }
+    } catch (...) {
+    }
+    return ((HANDLE)0);
+}
+/// ...
+/// windows threads
+/// 
+/// 
 /// windows crt threads
 /// ...
 unsigned* _beginthreadex(
