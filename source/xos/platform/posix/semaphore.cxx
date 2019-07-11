@@ -100,18 +100,25 @@ int sem_post(sem_t *sem) {
     return EINVAL; 
 }
 int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout) {
+    if ((sem) && (abs_timeout)) {
+        struct timespec timeout = *abs_timeout;
+        return sem_timedwait_relative_np(sem, &timeout);
+    }
+    return EINVAL; 
+}
+int sem_timedwait_relative_np(sem_t *sem, const struct timespec *timeout) {
     ::xos::mt::os::Semaphore** ppSemaphore = 0;
 
     if ((ppSemaphore = ((::xos::mt::os::Semaphore**)sem))) {
         ::xos::mt::os::Semaphore* pSemaphore = 0;
 
         if ((pSemaphore = (*ppSemaphore))) {
-            if ((abs_timeout)) {
+            if ((timeout)) {
                 ::xos::AcquireStatus status = ::xos::AcquireFailed;
                 mseconds_t milliseconds = 0;
 
-                milliseconds += ::xos::SecondsMSeconds(abs_timeout->tv_sec);
-                milliseconds += ::xos::NSecondsMSeconds(abs_timeout->tv_nsec);
+                milliseconds += ::xos::SecondsMSeconds(timeout->tv_sec);
+                milliseconds += ::xos::NSecondsMSeconds(timeout->tv_nsec);
                 if (::xos::AcquireSuccess == (status = pSemaphore->TimedAcquire(milliseconds))) {
                     return 0;
                 } else {
