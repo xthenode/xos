@@ -23,6 +23,6 @@
 #ifndef _XOS_PLATFORM_POSIX_APPLE_MACH_SEMAPHORE_H_
 #define _XOS_PLATFORM_POSIX_APPLE_MACH_SEMAPHORE_H_
 
-#include "xos/platform/posix/apple/Mach.h"
+#include "xos/platform/os/apple/mach/semaphore.h"
 
 #endif /*/ _XOS_PLATFORM_POSIX_APPLE_MACH_SEMAPHORE_H_ /*/

@@ -16,12 +16,12 @@
 ///   File: mutex.hxx
 ///
 /// Author: $author$
-///   Date: 5/21/2019
+///   Date: 6/21/2019
 ///////////////////////////////////////////////////////////////////////
 #ifndef _XOS_PLATFORM_POSIX_MUTEX_HXX_
 #define _XOS_PLATFORM_POSIX_MUTEX_HXX_
 
-#include "xos/platform/Posix.hxx"
+#include "xos/platform/posix/mutex.hxx"
 
 namespace xos {
 namespace platform {

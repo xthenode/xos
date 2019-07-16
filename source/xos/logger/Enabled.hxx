@@ -21,7 +21,7 @@
 #ifndef _XOS_LOGGER_ENABLED_HXX_
 #define _XOS_LOGGER_ENABLED_HXX_
 
-#include "xos/base/locked.hxx"
+#include "xos/base/Locked.hxx"
 #include "xos/logger/Level.hxx"
 
 namespace xos {

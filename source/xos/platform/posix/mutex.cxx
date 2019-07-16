@@ -16,7 +16,7 @@
 ///   File: mutex.cxx
 ///
 /// Author: $author$
-///   Date: 5/21/2019
+///   Date: 6/21/2019
 ///////////////////////////////////////////////////////////////////////
 #include "xos/platform/posix/mutex.hxx"
 
@@ -32,6 +32,10 @@ namespace posix {
 } /// namespace platform
 } /// namespace xos
 
+#if !defined(WINDOWS)
+///
+/// posix mutexes
+/// ...
 #if !defined(HAS_POSIX_TIMEOUTS)
 #if defined(PTHREAD_MUTEX_HAS_TIMEDLOCK)
 int pthread_mutex_timedlock
@@ -61,3 +65,7 @@ int pthread_mutex_timedlock_relative_np
 }
 #endif /// defined(PTHREAD_MUTEX_HAS_TIMEDLOCK_RELATIVE_NP)
 #endif /// !defined(HAS_POSIX_TIMEOUTS)
+/// ...
+/// posix mutexes
+/// 
+#endif /// !defined(WINDOWS)

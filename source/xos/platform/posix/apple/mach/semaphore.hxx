@@ -21,9 +21,6 @@
 #ifndef _XOS_PLATFORM_POSIX_APPLE_MACH_SEMAPHORE_HXX_
 #define _XOS_PLATFORM_POSIX_APPLE_MACH_SEMAPHORE_HXX_
 
-#include "xos/mt/os/Semaphore.hxx"
-#include "xos/mt/posix/Semaphore.hxx"
-#include "xos/platform/posix/apple/Mach.hxx"
 #include "xos/platform/posix/apple/mach/semaphore.h"
 
 namespace xos {

@@ -24,6 +24,7 @@
 #define _XOS_PLATFORM_POSIX_H_
 
 #include "xos/platform/Os.h"
+#include "xos/platform/Configure.h"
 
 #if defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
 #if !defined(HAS_POSIX_TIMEOUTS)
