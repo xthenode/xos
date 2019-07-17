@@ -71,6 +71,10 @@ protected:
         int err = 0;
         return err;
     }
+    virtual int LinuxRun(int argc, char_t**argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
     virtual int OsxRun(int argc, char_t**argv, char_t** env) {
         int err = 0;
         return err;
@@ -101,12 +105,20 @@ protected:
         _run = &Derives::WindowsRun;
         return err;
     }
-    virtual int OnMacOSXOption
+    virtual int OnOsxOption
     (int optval, const char_t* optarg,
      const char_t* optname, int optind,
      int argc, char_t**argv, char_t**env) {
         int err = 0;
         _run = &Derives::OsxRun;
+        return err;
+    }
+    virtual int OnLinuxOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        _run = &Derives::LinuxRun;
         return err;
     }
     virtual int OnPosixOption

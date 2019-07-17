@@ -27,14 +27,17 @@
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_REQUIRED
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_RESULT 0
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_C "w" 
-#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_S "Windows" 
-#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_C "m" 
-#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_S "MacOSX" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_S "windows" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_C "x" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_S "osx" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_C "l" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_S "linux" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_C "p" 
-#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S "Posix" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S "posix" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG \
     "{ " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_S \
     " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_S \
+    " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_S \
     " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S \
     " }" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTUSE ""
@@ -115,7 +118,14 @@ protected:
         int err = 0;
         return err;
     }
-    virtual int OnMacOSXOption
+    virtual int OnOsxOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
+    virtual int OnLinuxOption
     (int optval, const char_t* optarg,
      const char_t* optname, int optind,
      int argc, char_t**argv, char_t**env) {
@@ -143,16 +153,22 @@ protected:
             } else {
                 if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_C)) 
                     || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_S))) {
-                    err = OnMacOSXOption
+                    err = OnOsxOption
                     (optval, optarg, optname, optind, argc, argv, env);
                 } else {
-                    if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_C)) 
-                        || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S))) {
-                        err = OnPosixOption
+                    if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_C)) 
+                        || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_S))) {
+                        err = OnLinuxOption
                         (optval, optarg, optname, optind, argc, argv, env);
                     } else {
-                        err = Extends::OnInvalidOptionArg
-                        (optval, optarg, optname, optind, argc, argv, env);
+                        if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_C)) 
+                            || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S))) {
+                            err = OnPosixOption
+                            (optval, optarg, optname, optind, argc, argv, env);
+                        } else {
+                            err = Extends::OnInvalidOptionArg
+                            (optval, optarg, optname, optind, argc, argv, env);
+                        }
                     }
                 }
             }
