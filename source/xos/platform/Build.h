@@ -149,6 +149,21 @@
 #endif /*/ !defined(LINUX) /*/
 #endif /*/ defined(LINUX) || defined(_LINUX) || defined(__LINUX__) || defined(__Linux__) || defined(__linux__) /*/
 
+/*/
+/// Define SUNOS if any of the SunOS variants are defined
+/*/
+#if defined(SUNOS) || defined(_SUNOS) || defined(__SUNOS__) || defined(__sun__) || defined(__sun) || defined(__SunOS)
+#if defined(PLATFORM_DEFINED_DEBUG)
+#error defined SUNOS
+#endif /*/ defined(PLATFORM_DEFINED_DEBUG) /*/
+#if !defined(SUNOS)
+#define SUNOS
+#endif /*/ !defined(SUNOS) /*/
+#if !defined(SOLARIS)
+#define SOLARIS
+#endif /*/ !defined(SOLARIS) /*/
+#endif /*/ defined(SUNOS) || defined(_SUNOS) || defined(__SUNOS__) || defined(__sun__) || defined(__sun) || defined(__SunOS) /*/
+
 #if defined(__cplusplus)  
 extern "C" {
 #endif /*/ defined(__cplusplus)  /*/

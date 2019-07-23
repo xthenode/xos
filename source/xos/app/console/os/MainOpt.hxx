@@ -34,11 +34,14 @@
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_S "linux" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_C "p" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S "posix" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_SOLARIS_C "s" 
+#define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_SOLARIS_S "solaris" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG \
     "{ " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_WINDOWS_S \
     " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_MACOSX_S \
     " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_LINUX_S \
     " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_POSIX_S \
+    " | " "(" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_SOLARIS_C ")" XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_SOLARIS_S \
     " }" 
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTUSE ""
 #define XOS_APP_CONSOLE_OS_MAIN_OS_OPTVAL_S "o:"
@@ -139,6 +142,13 @@ protected:
         int err = 0;
         return err;
     }
+    virtual int OnSolarisOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        return err;
+    }
     virtual int OnOsOption
     (int optval, const char_t* optarg,
      const char_t* optname, int optind,
@@ -166,8 +176,14 @@ protected:
                             err = OnPosixOption
                             (optval, optarg, optname, optind, argc, argv, env);
                         } else {
-                            err = Extends::OnInvalidOptionArg
-                            (optval, optarg, optname, optind, argc, argv, env);
+                            if ((!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_SOLARIS_C)) 
+                                || (!arg.compare(XOS_APP_CONSOLE_OS_MAIN_OS_OPTARG_SOLARIS_S))) {
+                                err = OnSolarisOption
+                                (optval, optarg, optname, optind, argc, argv, env);
+                            } else {
+                                err = Extends::OnInvalidOptionArg
+                                (optval, optarg, optname, optind, argc, argv, env);
+                            }
                         }
                     }
                 }

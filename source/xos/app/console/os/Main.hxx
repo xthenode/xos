@@ -67,6 +67,10 @@ protected:
         int err = 0;
         return err;
     }
+    virtual int SolarisRun(int argc, char_t**argv, char_t** env) {
+        int err = 0;
+        return err;
+    }
     virtual int PosixRun(int argc, char_t**argv, char_t** env) {
         int err = 0;
         return err;
@@ -127,6 +131,14 @@ protected:
      int argc, char_t**argv, char_t**env) {
         int err = 0;
         _run = &Derives::PosixRun;
+        return err;
+    }
+    virtual int OnSolarisOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        _run = &Derives::SolarisRun;
         return err;
     }
     virtual int OnNativeRuntimeOption
