@@ -53,6 +53,10 @@ $${xos_DEFINES} \
 # xos_exe HEADERS
 #
 xos_exe_HEADERS += \
+\
+$${XOS_SRC}/xos/console/getopt/MainOpt.hxx \
+$${XOS_SRC}/xos/console/getopt/Main.hxx \
+\
 $${XOS_SRC}/xos/app/console/xos/Main.hxx \
 
 # xos_exe SOURCES
