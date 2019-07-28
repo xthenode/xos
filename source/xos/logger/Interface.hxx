@@ -945,4 +945,11 @@ XOS_IF_ERR_LOGGED_PLAIN_TRACE(this->IsLogged(), this->IsErrLogged(), message)
 #define IS_ERR_LOGGED_LOCATION_FATAL(message_) XOS_IS_ERR_LOGGED_LOCATION_FATAL(message_)
 #endif /// !defined(LOG_FATAL)
 
+#if !defined(IF_ERR_LOGGED_DEBUG_TRACE)
+#define IF_ERR_LOGGED_DEBUG_TRACE(isLogged_, isErrLogged_, message_) \
+    if (isLogged_) { IS_LOGGED_DEBUG(message_); } \
+    else { if (isErrLogged_) { IS_ERR_LOGGED_DEBUG(message_); } \
+           else { IS_ERR_LOGGED_TRACE(message_); } }
+#endif /// !defined(IF_ERR_LOGGED_DEBUG_TRACE)
+
 #endif /// _XOS_LOGGER_INTERFACE_HXX_

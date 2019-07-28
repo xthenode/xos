@@ -23,6 +23,7 @@
 
 #include "xos/console/Main.hxx"
 #include "xos/console/getopt/MainOpt.hxx"
+#include "xos/logger/Interface.hxx"
 
 namespace xos {
 namespace console {
@@ -56,6 +57,38 @@ private:
     }
     
 protected:
+    virtual char_t SetLoggingLevels(char_t to) {
+        switch (to) {
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_ALL:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_ALL | XOS_LOGGING_MESSAGE_LEVELS_ALL);
+            break;
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_NONE:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_NONE | XOS_LOGGING_MESSAGE_LEVELS_NONE);
+            break;
+
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_FATAL:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_FATAL | XOS_LOGGING_MESSAGE_LEVELS_FATAL);
+            break;
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_ERROR:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_ERROR | XOS_LOGGING_MESSAGE_LEVELS_ERROR);
+            break;
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_WARN:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_WARN | XOS_LOGGING_MESSAGE_LEVELS_WARN);
+            break;
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_INFO:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_INFO | XOS_LOGGING_MESSAGE_LEVELS_INFO);
+            break;
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_DEBUG:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_DEBUG | XOS_LOGGING_MESSAGE_LEVELS_DEBUG);
+            break;
+        case XOS_CONSOLE_MAIN_LOGGING_OPTARG_C_TRACE:
+            XOS_LOGGER_SET_LEVEL(XOS_LOGGING_LEVELS_TRACE | XOS_LOGGING_MESSAGE_LEVELS_TRACE);
+            break;
+        default:
+            break;
+        }
+        return to;
+    }
     virtual bool SetDidOptions(bool to = true) {
         _didOptions = to;
         return _didOptions;
