@@ -172,20 +172,20 @@ typedef void* sem_t;
 extern "C" {
 #endif /*/ defined(__cplusplus)  /*/
 
-int sem_close(sem_t *sem);
-int sem_destroy(sem_t *sem);
-int sem_getvalue(sem_t *sem, int *sval);
-int sem_init(sem_t *sem, int pshared, unsigned int value);
-sem_t *sem_open(const char *name, int oflag, ...);
-int sem_post(sem_t *sem);
-int sem_trywait(sem_t *sem);
-int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
-int sem_timedwait_relative_np(sem_t *sem, const struct timespec *timeout);
-int sem_unlink(const char *name);
-int sem_wait(sem_t *sem);
-int semctl(int semid, int semnum, int cmd, ...);
-int semget(key_t key, int nsems, int semflg);
-int semop(int semid, struct sembuf *sops, size_t nsops);
+extern int sem_close(sem_t *sem);
+extern int sem_destroy(sem_t *sem);
+extern int sem_getvalue(sem_t *sem, int *sval);
+extern int sem_init(sem_t *sem, int pshared, unsigned int value);
+extern sem_t *sem_open(const char *name, int oflag, ...);
+extern int sem_post(sem_t *sem);
+extern int sem_trywait(sem_t *sem);
+extern int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout);
+extern int sem_timedwait_relative_np(sem_t *sem, const struct timespec *timeout);
+extern int sem_unlink(const char *name);
+extern int sem_wait(sem_t *sem);
+extern int semctl(int semid, int semnum, int cmd, ...);
+extern int semget(key_t key, int nsems, int semflg);
+extern int semop(int semid, struct sembuf *sops, size_t nsops);
 
 #if defined(__cplusplus)
 } /*/ extern "C" /*/

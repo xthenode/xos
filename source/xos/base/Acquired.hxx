@@ -201,6 +201,36 @@ protected:
 typedef AcquireT<> Acquire;
 
 ///////////////////////////////////////////////////////////////////////
+///  Class: TryAcquireT
+///////////////////////////////////////////////////////////////////////
+template
+<class TImplements = Released, class TExtends = Base>
+class _EXPORT_CLASS TryAcquireT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+
+    TryAcquireT(Acquired& acquired): _acquired(acquired) {
+        AcquireStatus status = AcquireSuccess;
+        if (AcquireSuccess != (status = _acquired.TryAcquire())) {
+            AcquireException e(status);
+            throw (e);
+        }
+    }
+    virtual ~TryAcquireT() {
+    }
+private:
+    TryAcquireT(const TryAcquireT& copy): _acquired(*this) {
+    }
+    TryAcquireT(): _acquired(*this) {
+    }
+
+protected:
+    Acquired& _acquired;
+};
+typedef TryAcquireT<> TryAcquire;
+
+///////////////////////////////////////////////////////////////////////
 ///  Class: ReleaseT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Released, class TExtends = Base>
