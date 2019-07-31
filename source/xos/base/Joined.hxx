@@ -188,6 +188,34 @@ protected:
 };
 typedef JoinT<> Join;
 
+///////////////////////////////////////////////////////////////////////
+///  Class: TryJoinT
+///////////////////////////////////////////////////////////////////////
+template <class TImplements = Joined, class TExtends = Base>
+class _EXPORT_CLASS TryJoinT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+
+    TryJoinT(Joined& joined): _joined(joined) {
+        JoinStatus status = JoinFailed;
+        if (JoinSuccess != (status = _joined.TryJoin())) {
+            throw JoinException(status);
+        }
+    }
+    virtual ~TryJoinT() {
+    }
+private:
+    TryJoinT(const TryJoinT &copy): _joined(*this) {
+    }
+    TryJoinT(): _joined(*this) {
+    }
+
+protected:
+    Joined& _joined;
+};
+typedef TryJoinT<> TryJoin;
+
 } // namespace xos
 
 #endif /// _XOS_BASE_JOINED_HXX_

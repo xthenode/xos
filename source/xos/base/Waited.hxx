@@ -172,6 +172,36 @@ protected:
 };
 typedef WaitT<> Wait;
 
+///////////////////////////////////////////////////////////////////////
+///  Class: TryWaitT
+///////////////////////////////////////////////////////////////////////
+template
+<class TImplements = Waited, class TExtends = Base>
+class _EXPORT_CLASS TryWaitT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+
+    TryWaitT(Waited& waited): _waited(waited) {
+        WaitStatus status = WaitFailed;
+        if (WaitSuccess != (status = _waited.TryWait())) {
+            const WaitException e(status);
+            throw (e);
+        }
+    }
+    virtual ~TryWaitT() {
+    }
+private:
+    TryWaitT(const TryWaitT &copy): _waited(*this) {
+    }
+    TryWaitT(): _waited(*this) {
+    }
+
+protected:
+    Waited& _waited;
+};
+typedef TryWaitT<> TryWait;
+
 } /// namespace xos
 
 #endif /// _XOS_BASE_WAITED_HXX_
