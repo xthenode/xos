@@ -32,10 +32,10 @@ XOS_OS = windows
 } # contains(UNAME,Linux)
 } # contains(UNAME,Darwin)
 
-contains(XOS_OS_BUILD,XOS_OS) {
-XOS_OS_BUILD = $${XOS_OS}
+contains(BUILD_OS,XOS_OS) {
+BUILD_OS = $${XOS_OS}
 } else {
-XOS_OS_BUILD = os
+BUILD_OS = os
 }
 
 #CONFIG += c++11
