@@ -21,13 +21,13 @@
 #ifndef _XOS_APP_CONSOLE_MT_THREAD_MAIN_HXX_
 #define _XOS_APP_CONSOLE_MT_THREAD_MAIN_HXX_
 
-#include "xos/mt/Thread.hxx"
+#include "xos/mt/os/Sleep.hxx"
 #include "xos/mt/os/Thread.hxx"
 #include "xos/mt/microsoft/windows/crt/Thread.hxx"
 #include "xos/mt/microsoft/windows/Thread.hxx"
 #include "xos/mt/apple/osx/Thread.hxx"
+#include "xos/mt/linux/Thread.hxx"
 #include "xos/mt/posix/Thread.hxx"
-#include "xos/mt/os/Sleep.hxx"
 #include "xos/app/console/mt/thread/MainOpt.hxx"
 
 namespace xos {
@@ -58,13 +58,40 @@ private:
 protected:
     virtual void Run() {
         mseconds_t timeout = 0;
-        bool infinite = this->InfiniteTimeout(timeout);
-        if (infinite) {
+        bool infinite = this->InfiniteSleep(timeout);
+        if ((infinite) || (!sleep)) {
             this->OutLLn(__LOCATION__, "...", NULL);
         } else {
             this->OutLLn(__LOCATION__, "sleep(timeout = ", UnsignedToString(timeout).Chars(), ")...", NULL);
             ::xos::mt::os::Sleep sleep(timeout);
             this->OutLLn(__LOCATION__, "...sleep(timeout = ", UnsignedToString(timeout).Chars(), ")", NULL);
+        }
+    }
+    virtual void Run(Joined& joined) {
+        mseconds_t timeout = 0;
+        bool infinite = this->InfiniteTimeout(timeout);
+        this->OutLLn(__LOCATION__, "try {...", NULL);
+        try {
+            if ((infinite)) {
+                this->OutLLn(__LOCATION__, "Join join(joined)...", NULL);
+                Join join(joined);
+                this->OutLLn(__LOCATION__, "...Join join(joined)", NULL);
+            } else {
+                if ((timeout)) {
+                    this->OutLLn(__LOCATION__, "Join join(joined, timeout = ", UnsignedToString(timeout).Chars(), ")...", NULL);
+                    Join join(joined, timeout);
+                    this->OutLLn(__LOCATION__, "...Join join(joined, timeout = ", UnsignedToString(timeout).Chars(), ")", NULL);
+                } else {
+                    this->OutLLn(__LOCATION__, "TryJoin join(joined)...", NULL);
+                    TryJoin join(joined);
+                    this->OutLLn(__LOCATION__, "...TryJoin join(joined)", NULL);
+                }
+            }
+            this->OutLLn(__LOCATION__, "...} try", NULL);
+        } catch(const Exception& e) {
+            this->OutLLn(__LOCATION__, "...catch (const Exception& e.Status = \"", e.StatusToString().Chars(), "\")", NULL);
+        } catch(...) {
+            this->OutLLn(__LOCATION__, "...catch (...)", NULL);
         }
     }
     template <class TThread>
@@ -73,7 +100,7 @@ protected:
         this->OutLLn(__LOCATION__, "try {...", NULL);
         try {
             TThread thread(*this);
-            Join join(thread);
+            Run(thread);
             this->OutLLn(__LOCATION__, "...} try", NULL);
         } catch(const Exception& e) {
             this->OutLLn(__LOCATION__, "...catch (const Exception& e.Status = \"", e.StatusToString().Chars(), "\")", NULL);
@@ -93,6 +120,10 @@ protected:
     }
     virtual int OsxRun(int argc, char_t**argv, char_t** env) {
         int err = RunT< ::xos::mt::apple::osx::Thread >(argc, argv, env);
+        return err;
+    }
+    virtual int LinuxRun(int argc, char_t**argv, char_t** env) {
+        int err = RunT< ::xos::mt::linux::Thread >(argc, argv, env);
         return err;
     }
     virtual int PosixRun(int argc, char_t**argv, char_t** env) {

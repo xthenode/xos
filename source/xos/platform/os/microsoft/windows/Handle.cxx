@@ -16,7 +16,7 @@
 ///   File: Handle.cxx
 ///
 /// Author: $author$
-///   Date: 6/21/2019
+///   Date: 7/27/2019
 ///////////////////////////////////////////////////////////////////////
 #include "xos/platform/os/microsoft/windows/Handle.hxx"
 

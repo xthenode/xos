@@ -22,7 +22,7 @@
 #define _XOS_MT_CONDITION_HXX_
 
 #include "xos/base/Signaled.hxx"
-#include "xos/base/logged.hxx"
+#include "xos/base/Logged.hxx"
 #include "xos/base/Created.hxx"
 #include "xos/mt/Mutex.hxx"
 

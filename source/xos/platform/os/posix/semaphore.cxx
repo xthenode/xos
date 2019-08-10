@@ -17,9 +17,11 @@
 ///
 /// Author: $author$
 ///   Date: 6/23/2019
+/// 
+/// posix semaphores to os semaphores 
 ///////////////////////////////////////////////////////////////////////
-#include "xos/mt/os/Semaphore.hxx"
 #include "xos/platform/os/posix/semaphore.hxx"
+#include "xos/mt/os/Semaphore.hxx"
 
 #if !defined(WINDOWS)
 #if !defined(HAS_POSIX_SEMAPHORE)
@@ -54,7 +56,7 @@ int sem_init(sem_t *sem, int pshared, unsigned int value) {
     if ((ppSemaphore = ((::xos::mt::os::Semaphore**)sem))) {
         ::xos::mt::os::Semaphore* pSemaphore = 0;
 
-        if ((pSemaphore = new ::xos::mt::os::Semaphore(((::xos::mt::os::Semaphore::Attached)::xos::mt::os::Semaphore::Unattached)))) {
+        if ((pSemaphore = new ::xos::mt::os::Semaphore(((::xos::mt::os::Semaphore::Attached)::xos::mt::os::Semaphore::Unattached), false, false))) {
             if ((pSemaphore->Create(value))) {
                 *ppSemaphore = pSemaphore;
                 return 0;
@@ -62,7 +64,7 @@ int sem_init(sem_t *sem, int pshared, unsigned int value) {
             delete pSemaphore;
         }
     }
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 int sem_destroy(sem_t *sem) { 
     ::xos::mt::os::Semaphore** ppSemaphore = 0;
@@ -76,7 +78,7 @@ int sem_destroy(sem_t *sem) {
             return 0;
         }
     }
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 int sem_post(sem_t *sem) { 
     ::xos::mt::os::Semaphore** ppSemaphore = 0;
@@ -90,10 +92,10 @@ int sem_post(sem_t *sem) {
             }
         }
     }
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 int sem_timedwait(sem_t *sem, const struct timespec *abs_timeout) {
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 int sem_timedwait_relative_np(sem_t *sem, const struct timespec *timeout) {
     ::xos::mt::os::Semaphore** ppSemaphore = 0;
@@ -113,10 +115,10 @@ int sem_timedwait_relative_np(sem_t *sem, const struct timespec *timeout) {
                     return 0;
                 } else {
                     if (::xos::AcquireBusy == (status)) {
-                        return ETIMEDOUT;
+                        return errno = ETIMEDOUT;
                     } else {
                         if (::xos::AcquireInterrupted == (status)) {
-                            return EINTR;
+                            return errno = EINTR;
                         } else {
                         }
                     }
@@ -130,7 +132,7 @@ int sem_timedwait_relative_np(sem_t *sem, const struct timespec *timeout) {
             }
         }
     }
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 int sem_trywait(sem_t *sem) { 
     ::xos::mt::os::Semaphore** ppSemaphore = 0;
@@ -139,12 +141,22 @@ int sem_trywait(sem_t *sem) {
         ::xos::mt::os::Semaphore* pSemaphore = 0;
 
         if ((pSemaphore = (*ppSemaphore))) {
-            if ((pSemaphore->TryAcquire())) {
+            ::xos::AcquireStatus status = ::xos::AcquireFailed;
+            if (::xos::AcquireSuccess == (status = pSemaphore->TryAcquire())) {
                 return 0;
+            } else {
+                if (::xos::AcquireBusy == (status)) {
+                    return errno = EAGAIN;
+                } else {
+                    if (::xos::AcquireInterrupted == (status)) {
+                        return errno = EINTR;
+                    } else {
+                    }
+                }
             }
         }
     }
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 int sem_wait(sem_t *sem) { 
     ::xos::mt::os::Semaphore** ppSemaphore = 0;
@@ -158,7 +170,7 @@ int sem_wait(sem_t *sem) {
             }
         }
     }
-    return EINVAL; 
+    return errno = EINVAL; 
 }
 /// ...
 /// posix semaphores

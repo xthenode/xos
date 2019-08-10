@@ -21,8 +21,9 @@
 #ifndef _XOS_PLATFORM_OS_MICROSOFT_WINDOWS_MUTEX_HXX_
 #define _XOS_PLATFORM_OS_MICROSOFT_WINDOWS_MUTEX_HXX_
 
-#include "xos/mt/os/Mutex.hxx"
+#include "xos/platform/os/microsoft/windows/Mutex.h"
 #include "xos/platform/os/microsoft/windows/Handle.hxx"
+#include "xos/mt/os/Mutex.hxx"
 
 namespace xos {
 namespace platform {

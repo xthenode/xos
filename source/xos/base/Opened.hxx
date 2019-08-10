@@ -149,9 +149,9 @@ public:
     typedef TAttached Attached;
     static const TUnattached Unattached = VUnattached;
 
-    OpenedT(const OpenedT &copy) {
+    OpenedT(const OpenedT &copy): _isOpen(copy._isOpen) {
     }
-    OpenedT() {
+    OpenedT(): _isOpen(false) {
     }
     virtual ~OpenedT() {
         LOG_DEBUG("this->Closed()...");
@@ -206,7 +206,7 @@ public:
     }
     virtual Attached DetachOpened(bool& isOpen) {
         isOpen = this->IsOpen();
-        this->IsOpen(false);
+        this->SetIsOpen(false);
         return Extends::Detach();
     }
     virtual Attached Attach(Attached attachedTo) {

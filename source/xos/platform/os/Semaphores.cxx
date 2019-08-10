@@ -20,6 +20,8 @@
 ///////////////////////////////////////////////////////////////////////
 #include "xos/platform/os/Semaphores.hxx"
 #include "xos/platform/os/microsoft/windows/Semaphore.cxx"
+#include "xos/platform/os/oracle/solaris/semaphores.cxx"
+#include "xos/platform/os/apple/mach/semaphore.cxx"
 #include "xos/platform/os/posix/semaphore.cxx"
 
 namespace xos {

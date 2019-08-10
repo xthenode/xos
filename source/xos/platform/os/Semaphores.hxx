@@ -22,6 +22,8 @@
 #define _XOS_PLATFORM_OS_SEMAPHORES_HXX_
 
 #include "xos/platform/os/microsoft/windows/Semaphore.hxx"
+#include "xos/platform/os/oracle/solaris/semaphores.hxx"
+#include "xos/platform/os/apple/mach/semaphore.hxx"
 #include "xos/platform/os/posix/semaphore.hxx"
 
 namespace xos {

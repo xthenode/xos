@@ -17,10 +17,13 @@
 ///
 /// Author: $author$
 ///   Date: 6/23/2019
+/// 
+/// posix semaphores to os semaphores 
 ///////////////////////////////////////////////////////////////////////
 #ifndef _XOS_PLATFORM_OS_POSIX_SEMAPHORE_HXX_
 #define _XOS_PLATFORM_OS_POSIX_SEMAPHORE_HXX_
 
+#include "xos/platform/os/posix/semaphore.h"
 #include "xos/platform/Posix.hxx"
 
 namespace xos {

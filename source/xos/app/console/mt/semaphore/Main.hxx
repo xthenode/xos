@@ -23,10 +23,13 @@
 
 #include "xos/mt/Semaphore.hxx"
 #include "xos/mt/microsoft/windows/Semaphore.hxx"
+#include "xos/mt/oracle/solaris/Semaphore.hxx"
 #include "xos/mt/apple/mach/Semaphore.hxx"
 #include "xos/mt/apple/osx/Semaphore.hxx"
+#include "xos/mt/linux/Semaphore.hxx"
 #include "xos/mt/posix/Semaphore.hxx"
 #include "xos/mt/os/Semaphore.hxx"
+#include "xos/mt/os/apple/mach/Semaphore.hxx"
 #include "xos/app/console/mt/semaphore/MainOpt.hxx"
 
 namespace xos {
@@ -68,9 +71,15 @@ protected:
                     Acquire acquire(acquired);
                     this->OutLLn(__LOCATION__, "...Acquire acquire(acquired)", NULL);
                 } else {
-                    this->OutLLn(__LOCATION__, "Acquire acquire(acquired, timeout = ", UnsignedToString(timeout).Chars(), ")...", NULL);
-                    Acquire acquire(acquired, timeout);
-                    this->OutLLn(__LOCATION__, "...Acquire acquire(acquired, timeout = ", UnsignedToString(timeout).Chars(), ")", NULL);
+                    if ((timeout)) {
+                        this->OutLLn(__LOCATION__, "Acquire acquire(acquired, timeout = ", UnsignedToString(timeout).Chars(), ")...", NULL);
+                        Acquire acquire(acquired, timeout);
+                        this->OutLLn(__LOCATION__, "...Acquire acquire(acquired, timeout = ", UnsignedToString(timeout).Chars(), ")", NULL);
+                    } else {
+                        this->OutLLn(__LOCATION__, "TryAcquire acquire(acquired,)...", NULL);
+                        TryAcquire acquire(acquired);
+                        this->OutLLn(__LOCATION__, "...TryAcquire acquire(acquired)", NULL);
+                    }
                 }
                 err = 0;
                 this->OutLLn(__LOCATION__, "...} try", NULL);
@@ -109,6 +118,7 @@ protected:
         }
         return err;
     }
+
     virtual int DerivedRun(int argc, char_t**argv, char_t** env) {
         int err = RunT< ::xos::mt::derived::Semaphore >(argc, argv, env);
         return err;
@@ -117,12 +127,20 @@ protected:
         int err = RunT< ::xos::mt::microsoft::windows::Semaphore >(argc, argv, env);
         return err;
     }
+    virtual int SolarisRun(int argc, char_t**argv, char_t** env) {
+        int err = RunT< ::xos::mt::oracle::solaris::Semaphore >(argc, argv, env);
+        return err;
+    }
     virtual int OsxRun(int argc, char_t**argv, char_t** env) {
         int err = RunT< ::xos::mt::apple::osx::Semaphore >(argc, argv, env);
         return err;
     }
     virtual int PosixRun(int argc, char_t**argv, char_t** env) {
         int err = RunT< ::xos::mt::posix::Semaphore >(argc, argv, env);
+        return err;
+    }
+    virtual int LinuxRun(int argc, char_t**argv, char_t** env) {
+        int err = RunT< ::xos::mt::linux::Semaphore >(argc, argv, env);
         return err;
     }
     virtual int OsRun(int argc, char_t**argv, char_t** env) {

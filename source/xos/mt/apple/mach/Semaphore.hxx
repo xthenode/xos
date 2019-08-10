@@ -18,9 +18,12 @@
 /// Author: $author$
 ///   Date: 6/22/2019
 ///////////////////////////////////////////////////////////////////////
-#ifndef _XOS_MT_APPLE_MACH_SEMAPHORE_HXX_
+#if !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_HXX_) || defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
+#if !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_HXX_) && !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
 #define _XOS_MT_APPLE_MACH_SEMAPHORE_HXX_
+#endif /// !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_HXX_) && !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
 
+#if !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
 #include "xos/mt/os/Os.hxx"
 #include "xos/mt/Semaphore.hxx"
 
@@ -28,10 +31,21 @@
 #include <mach/mach.h>
 #include <mach/semaphore.h>
 
+#if !defined(SEMAPHORE_HAS_TRYWAIT)
+inline kern_return_t semaphore_trywait(semaphore_t semaphore ) { 
+    mach_timespec_t wait_time;    
+    wait_time.tv_sec = 0;
+    wait_time.tv_nsec = 0;
+    return ::semaphore_timedwait(semaphore, wait_time); 
+}
+#define SEMAPHORE_HAS_TRYWAIT
+#endif /// !defined(SEMAPHORE_HAS_TRYWAIT)
+
 namespace xos {
 namespace mt {
 namespace apple {
 namespace mach {
+#endif /// !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
 
 ///////////////////////////////////////////////////////////////////////
 ///  Class: SemaphoreT
@@ -48,10 +62,6 @@ class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
-
-    typedef typename Extends::Error Error;
-    static const Error ErrorSuccess = Extends::ErrorSuccess;
-    static const Error ErrorFailed = Extends::ErrorFailed;
 
     typedef typename Extends::Attached Attached;
     static const typename Extends::UnattachedT Unattached = Extends::Unattached;
@@ -99,7 +109,34 @@ public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     virtual AcquireStatus TryAcquireDetached(Attached detached) const { 
-        return TimedAcquireDetached(detached, 0); 
+#if defined(SEMAPHORE_HAS_TRYWAIT)
+        if (((Attached)Unattached) != detached) {
+            semaphore_t& semaphore = *detached;
+            kern_return_t err = 0;
+
+            IS_ERR_LOGGED_TRACE("::semaphore_trywait(semaphore)...");
+            if (KERN_SUCCESS == (err = ::semaphore_trywait(semaphore))) {
+                IS_ERR_LOGGED_TRACE("...::semaphore_trywait(semaphore)...");
+                return AcquireSuccess;
+            } else {
+                if (KERN_OPERATION_TIMED_OUT == (err)) {
+                    IS_ERR_LOGGED_TRACE("...failed KERN_OPERATION_TIMED_OUT err = " << err << " on ::semaphore_trywait(semaphore)");
+                    return AcquireBusy;
+                } else {
+                    if (KERN_ABORTED == (err)) {
+                        IS_ERR_LOGGED_ERROR("...failed KERN_ABORTED err = " << err << " on ::semaphore_trywait(semaphore)");
+                        return AcquireInterrupted;
+                    } else {
+                        IS_ERR_LOGGED_ERROR("...failed err = " << err << " on ::semaphore_trywait(semaphore)");
+                    }
+                }
+            }
+        }
+        return AcquireFailed; 
+#else /// defined(SEMAPHORE_HAS_TRYWAIT)
+        IS_ERR_LOGGED_ERROR("...return AcquireInvalid");
+        return AcquireInvalid; 
+#endif /// defined(SEMAPHORE_HAS_TRYWAIT)
     }
     virtual AcquireStatus TimedAcquireDetached(Attached detached, mseconds_t milliseconds) const { 
         if (0 > (milliseconds)) {
@@ -109,19 +146,19 @@ public:
                 semaphore_t& semaphore = *detached;
                 mseconds_t millisecondsThreashold = this->TimedLoggedThreasholdMilliseconds();
                 bool isLogged = ((this->IsLogged()) && (milliseconds >= millisecondsThreashold));
-                Error err = 0;
+                kern_return_t err = 0;
                 mach_timespec_t wait_time;
 
                 wait_time.tv_sec = MSecondsSeconds(milliseconds);
                 wait_time.tv_nsec = MSecondsNSeconds(MSecondsMSeconds(milliseconds));
 
-                IF_ERR_LOGGED_DEBUG(isLogged, isLogged, "::semaphore_timedwait(semaphore, wait_time)...");
+                IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "::semaphore_timedwait(semaphore, wait_time)...");
                 if (KERN_SUCCESS == (err = ::semaphore_timedwait(semaphore, wait_time))) {
-                    IF_ERR_LOGGED_DEBUG(isLogged, isLogged, "...::semaphore_timedwait(semaphore, wait_time)...");
+                    IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...::semaphore_timedwait(semaphore, wait_time)...");
                     return AcquireSuccess;
                 } else {
                     if (KERN_OPERATION_TIMED_OUT == (err)) {
-                        IF_ERR_LOGGED_DEBUG(isLogged, isLogged, "...failed KERN_OPERATION_TIMED_OUT err = " << err << " on ::semaphore_timedwait(semaphore, wait_time)");
+                        IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...failed KERN_OPERATION_TIMED_OUT err = " << err << " on ::semaphore_timedwait(semaphore, wait_time)");
                         return AcquireBusy;
                     } else {
                         if (KERN_ABORTED == (err)) {
@@ -139,7 +176,7 @@ public:
     virtual AcquireStatus UntimedAcquireDetached(Attached detached) const { 
         if (((Attached)Unattached) != detached) {
             semaphore_t& semaphore = *detached;
-            int err = 0;
+            kern_return_t err = 0;
 
             IS_ERR_LOGGED_DEBUG("::semaphore_wait(semaphore)...");
             if (KERN_SUCCESS == (err = ::semaphore_wait(semaphore))) {
@@ -164,7 +201,7 @@ public:
     virtual AcquireStatus UntimedReleaseDetached(Attached detached) const { 
         if (((Attached)Unattached) != detached) {
             semaphore_t& semaphore = *detached;
-            Error err = 0;
+            kern_return_t err = 0;
 
             IS_ERR_LOGGED_DEBUG("::semaphore_signal(semaphore)...");
             if (KERN_SUCCESS == (err = ::semaphore_signal(semaphore))) {
@@ -193,7 +230,7 @@ public:
         Attached detached = ((Attached)Unattached);
         sync_policy_t syncPolicy = SYNC_POLICY_FIFO;
         task_t task = mach_task_self();
-        Error err = 0;
+        kern_return_t err = 0;
 
         IS_ERR_LOGGED_DEBUG("::semaphore_create(task, &semaphore, syncPolicy, initiallyReleased)...");
         if (KERN_SUCCESS != (err = ::semaphore_create(task, &semaphore, syncPolicy, initiallyReleased))) {
@@ -208,7 +245,7 @@ public:
         if (((Attached)Unattached) != detached) {
             semaphore_t& semaphore = *detached;
             task_t task = mach_task_self();
-            Error err = 0;
+            kern_return_t err = 0;
 
             IS_ERR_LOGGED_DEBUG("::semaphore_destroy(task, semaphore)...")
             if (KERN_SUCCESS != (err = ::semaphore_destroy(task, semaphore))) {
@@ -228,9 +265,11 @@ protected:
 }; /// class _EXPORT_CLASS SemaphoreT
 typedef SemaphoreT<> Semaphore;
 
+#if !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
 } /// namespace mach
 } /// namespace apple
 } /// namespace mt
 } /// namespace xos
+#endif /// !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)
 
-#endif /// _XOS_MT_APPLE_MACH_SEMAPHORE_HXX_
+#endif /// !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_HXX_) || defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)

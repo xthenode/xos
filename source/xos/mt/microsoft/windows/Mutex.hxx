@@ -45,10 +45,6 @@ public:
     typedef TImplements Implements;
     typedef TExtends Extends;
 
-    typedef typename Extends::Error Error;
-    static const Error ErrorSuccess = Extends::ErrorSuccess;
-    static const Error ErrorFailed = Extends::ErrorFailed;
-
     typedef typename Extends::Attached Attached;
     static const typename Extends::UnattachedT Unattached = Extends::Unattached;
 
@@ -124,11 +120,11 @@ public:
                 bool isLogged = ((this->IsLogged()) && (milliseconds >= this->TimedLoggedThreasholdMilliseconds()));
                 DWORD dwMilliseconds = (DWORD)(milliseconds), dwResult = 0;
                 
-                IF_ERR_LOGGED_DEBUG(isLogged, isLogged, "WaitForSingleObject(detached, dwMilliseconds)...");
+                IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "WaitForSingleObject(detached, dwMilliseconds)...");
                 if (WAIT_OBJECT_0 != (dwResult = WaitForSingleObject(detached, dwMilliseconds))) {
                     switch(dwResult) {
                     case WAIT_TIMEOUT:
-                        IF_ERR_LOGGED_DEBUG(isLogged, isLogged, "...failed WAIT_TIMEOUT dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
+                        IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...failed WAIT_TIMEOUT dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
                         return LockBusy;
                     case WAIT_ABANDONED:
                         IS_ERR_LOGGED_ERROR("...failed WAIT_ABANDONED dwResult = " << dwResult << " on WaitForSingleObject(detached, dwMilliseconds)...");
@@ -138,7 +134,7 @@ public:
                         return LockFailed;
                     }
                 } else {
-                    IF_ERR_LOGGED_DEBUG(isLogged, isLogged, "...WaitForSingleObject(detached, dwMilliseconds)");
+                    IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...WaitForSingleObject(detached, dwMilliseconds)");
                     return LockSuccess;
                 }
             }

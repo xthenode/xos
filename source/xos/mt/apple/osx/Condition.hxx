@@ -28,6 +28,7 @@ namespace mt {
 namespace apple {
 namespace osx {
 
+typedef posix::Mutex Mutex;
 typedef posix::Condition Condition;
 
 } /// namespace osx

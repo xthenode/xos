@@ -21,11 +21,13 @@
 #ifndef _XOS_MT_LINUX_THREAD_HXX_
 #define _XOS_MT_LINUX_THREAD_HXX_
 
-#include "xos/mt/Semaphore.hxx"
+#include "xos/mt/posix/Thread.hxx"
 
 namespace xos {
 namespace mt {
 namespace linux {
+
+typedef posix::Thread Thread;
 
 } /// namespace linux
 } /// namespace mt

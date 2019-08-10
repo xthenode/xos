@@ -16,11 +16,12 @@
 ///   File: Handle.hxx
 ///
 /// Author: $author$
-///   Date: 6/21/2019
+///   Date: 7/27/2019
 ///////////////////////////////////////////////////////////////////////
 #ifndef _XOS_PLATFORM_OS_MICROSOFT_WINDOWS_HANDLE_HXX_
 #define _XOS_PLATFORM_OS_MICROSOFT_WINDOWS_HANDLE_HXX_
 
+#include "xos/platform/os/microsoft/windows/Handle.h"
 #include "xos/platform/os/microsoft/Windows.hxx"
 #include "xos/base/Logged.hxx"
 

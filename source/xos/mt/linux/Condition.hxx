@@ -21,11 +21,13 @@
 #ifndef _XOS_MT_LINUX_CONDITION_HXX_
 #define _XOS_MT_LINUX_CONDITION_HXX_
 
-#include "xos/mt/Semaphore.hxx"
+#include "xos/mt/posix/Condition.hxx"
 
 namespace xos {
 namespace mt {
 namespace linux {
+
+typedef posix::Condition Condition;
 
 } /// namespace linux
 } /// namespace mt

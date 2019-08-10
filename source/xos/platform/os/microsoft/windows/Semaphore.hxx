@@ -114,49 +114,4 @@ protected:
 } /// namespace platform
 } /// namespace xos
 
-#if !defined(WINDOWS)
-///
-/// windows semaphores
-/// ...
-HANDLE WINAPI CreateSemaphore(
-  _In_opt_ LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,
-  _In_     LONG                  lInitialCount,
-  _In_     LONG                  lMaximumCount,
-  _In_opt_ LPCTSTR               lpName
-) {
-    try {
-        ::xos::platform::os::microsoft::windows::Semaphore* semaphore = 0;
-
-        if ((semaphore = new ::xos::platform::os::microsoft::windows::Semaphore(lInitialCount, lMaximumCount))) {
-            return semaphore;
-        }
-    } catch (...) {
-    }
-    return NULL_HANDLE;
-}
-BOOL WINAPI ReleaseSemaphore(
-  _In_      HANDLE hSemaphore,
-  _In_      LONG   lReleaseCount,
-  _Out_opt_ LPLONG lpPreviousCount
-) {
-    ::xos::platform::os::microsoft::windows::Handle* handle = 0;
-
-    if ((handle = ((::xos::platform::os::microsoft::windows::Handle*)hSemaphore))) {
-        ::xos::platform::os::microsoft::windows::Semaphore* semaphore = 0;
-
-        if ((semaphore = handle->ToSemaphore())) {
-            BOOL success = FALSE;
-
-            if ((success = semaphore->ReleaseSemaphore(lReleaseCount, lpPreviousCount))) {
-                return success;
-            }
-        }
-    }
-    return FALSE;
-}
-/// ...
-/// windows semaphores
-/// 
-#endif /// !defined(WINDOWS)
-
 #endif /// _XOS_PLATFORM_OS_MICROSOFT_WINDOWS_SEMAPHORE_HXX_

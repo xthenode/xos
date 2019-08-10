@@ -43,24 +43,26 @@ public:
     typedef typename Implements::chars_t chars_t;
     typedef typename Implements::char_t char_t;
 
-    MainT(): _timeout(MSecondsInfinite()) {
+    MainT(): _sleep(0), _timeout(MSecondsInfinite()) {
     }
     virtual ~MainT() {
     }
 private:
-    MainT(const MainT& copy): _timeout(0) {
+    MainT(const MainT& copy): _sleep(0), _timeout(0) {
     }
 
 protected:
-    virtual mseconds_t SetTimeout(mseconds_t to) {
-        _timeout = to;
-        return _timeout;
-    }
-    virtual mseconds_t Timeout() const {
-        return _timeout;
-    }
-    virtual bool InfiniteTimeout(mseconds_t& timeout) const {
-        return ((timeout = _timeout) == MSecondsInfinite());
+    virtual int OnSleepOption
+    (int optval, const char_t* optarg,
+     const char_t* optname, int optind,
+     int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            string_t opt(optarg);
+            unsigned to = opt.ToUnsigned();
+            SetSleep(to);
+        }
+        return err;
     }
     virtual int OnTimeoutOption
     (int optval, const char_t* optarg,
@@ -84,6 +86,9 @@ protected:
     virtual int PosixRun(int argc, char_t**argv, char_t** env) {
         return DerivedRun(argc, argv, env);
     }
+    virtual int LinuxRun(int argc, char_t**argv, char_t** env) {
+        return DerivedRun(argc, argv, env);
+    }
     virtual int OsxRun(int argc, char_t**argv, char_t** env) {
         return DerivedRun(argc, argv, env);
     }
@@ -94,8 +99,29 @@ protected:
         return DerivedRun(argc, argv, env);
     }
 
+    virtual mseconds_t SetSleep(mseconds_t to) {
+        _sleep = to;
+        return _sleep;
+    }
+    virtual mseconds_t Sleep() const {
+        return _sleep;
+    }
+    virtual bool InfiniteSleep(mseconds_t& timeout) const {
+        return ((timeout = _sleep) == MSecondsInfinite());
+    }
+    virtual mseconds_t SetTimeout(mseconds_t to) {
+        _timeout = to;
+        return _timeout;
+    }
+    virtual mseconds_t Timeout() const {
+        return _timeout;
+    }
+    virtual bool InfiniteTimeout(mseconds_t& timeout) const {
+        return ((timeout = _timeout) == MSecondsInfinite());
+    }
+
 protected:
-    mseconds_t _timeout;
+    mseconds_t _sleep, _timeout;
 }; /// class _EXPORT_CLASS MainT
 typedef MainT<> Main;
 

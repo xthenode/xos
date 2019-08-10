@@ -384,6 +384,29 @@ typedef UnsignedToStringT<String> UnsignedToString;
 typedef UnsignedToStringT<TString> UnsignedToTString;
 typedef UnsignedToStringT<WString> UnsignedToWString;
 
+///////////////////////////////////////////////////////////////////////
+///  Class: IntToStringT
+///////////////////////////////////////////////////////////////////////
+template 
+<class TString = String,
+ class TImplements = typename TString::Implements, class TExtends = TString>
+class _EXPORT_CLASS IntToStringT: virtual public TImplements, public TExtends {
+public:
+    typedef TImplements Implements;
+    typedef TExtends Extends;
+
+    IntToStringT(const unsigned& value) {
+        this->AppendInt(value);
+    }
+    IntToStringT(const IntToStringT& copy): Extends(copy) {
+    }
+    virtual ~IntToStringT() {
+    }
+}; /// class _EXPORT_CLASS IntToStringT
+typedef IntToStringT<String> IntToString;
+typedef IntToStringT<TString> IntToTString;
+typedef IntToStringT<WString> IntToWString;
+
 } /// namespace xos
 
 #endif /// _XOS_BASE_STRING_HXX_

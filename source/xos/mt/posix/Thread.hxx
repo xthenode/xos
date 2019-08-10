@@ -35,25 +35,50 @@
 #define PTHREAD_HAS_TIMEDJOIN
 #endif // !defined(PTHREAD_HAS_TIMEDJOIN)
 #else // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
-//
-// pthread_tryjoin_np
-//
+#if !defined(CLOCK_REALTIME)
+#define CLOCK_REALTIME 0
+#define clockid_t int
+inline int clock_gettime(clockid_t clk_id, struct timespec *res) {
+    if ((res)) {
+        memset(res, 0, sizeof(struct timespec));
+        return 0;
+    }
+    return EINVAL;
+}
+#endif /// !defined(CLOCK_REALTIME)
 #if !defined(PTHREAD_HAS_TRYJOIN)
 #define PTHREAD_HAS_TRYJOIN
-#if !defined(pthread_tryjoin_np)
-#define pthread_tryjoin_np(t, v) EINVAL
-#endif // !defined(pthread_tryjoin_np)
+inline int pthread_tryjoin_np(pthread_t thread, void **retval) {
+    return EINVAL;
+}
 #endif // !defined(PTHREAD_HAS_TRYJOIN)
-//
-// pthread_timedjoin_np
-//
 #if !defined(PTHREAD_HAS_TIMEDJOIN)
 #define PTHREAD_HAS_TIMEDJOIN
-#if !defined(pthread_timedjoin_np)
-#define pthread_timedjoin_np(t, v, u) EINVAL
-#endif // !defined(pthread_timedjoin_np)
+inline int pthread_timedjoin_np(pthread_t thread, void **retval, const struct timespec *abstime) {
+    return EINVAL;
+}
 #endif // !defined(PTHREAD_HAS_TIMEDJOIN)
 #endif // defined(_POSIX_TIMEOUTS) && (_POSIX_TIMEOUTS >=0 )
+
+#if !defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+#if !defined(NO_DEFINE_PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+#define PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP
+inline int pthread_timedjoin_relative_np(pthread_t thread, void **retval, const struct timespec *reltime) {
+#if defined(PTHREAD_HAS_TIMEDJOIN)
+    if ((reltime)) {
+        int err = 0; struct timespec untilTime;
+        if (!(err = ::clock_gettime(CLOCK_REALTIME, &untilTime))) {
+            untilTime.tv_sec +=  reltime->tv_sec;
+            untilTime.tv_nsec +=  reltime->tv_nsec;
+            err = ::pthread_timedjoin_np(thread, retval, &untilTime);
+        }
+        return err;
+    }
+#endif /// defined(PTHREAD_HAS_TIMEDJOIN)
+    return EINVAL;
+}
+#endif // !defined(NO_DEFINE_PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+#endif // !defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
 
 namespace xos {
 namespace mt {
@@ -175,32 +200,49 @@ public:
         if (0 < (milliseconds)) {
 #if defined(PTHREAD_HAS_TIMEDJOIN)
             if (((Attached)Unattached) != (detached)) {
+                const char* _relative_np = "_np";
+                mseconds_t millisecondsThreashold = this->TimedLoggedThreasholdMilliseconds();
+                bool isLogged = ((this->IsLogged()) && (milliseconds >= millisecondsThreashold));
                 void* value = 0;
                 int err = 0;
                 struct timespec untilTime;
 
-                IS_ERR_LOGGED_TRACE("::clock_gettime(CLOCK_REALTIME, &untilTime);...");
+#if defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+                _relative_np = "_relative_np";
+                IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "::memset(&untilTime, 0, sizeof(untilTime))...");
+                ::memset(&untilTime, 0, sizeof(untilTime));
+#else /// defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+                IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "::clock_gettime(CLOCK_REALTIME, &untilTime);...");
                 ::clock_gettime(CLOCK_REALTIME, &untilTime);
+#endif /// defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+
                 untilTime.tv_sec +=  MSecondsSeconds(milliseconds);
                 untilTime.tv_nsec +=  MSecondsNSeconds(MSecondsMSeconds(milliseconds));
 
-                IS_ERR_LOGGED_TRACE("::pthread_timedjoin_np(*detached, &value, &untilTime)...");
-                if (!(err = ::pthread_timedjoin_np(*detached, &value, &untilTime))) {
+                IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "::pthread_timedjoin" << _relative_np << "(*detached, &value, &untilTime)...");
+#if defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+                err = ::pthread_timedjoin_relative_np(*detached, &value, &untilTime);
+#else /// defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+                err = ::pthread_timedjoin_np(*detached, &value, &untilTime);
+#endif /// defined(PTHREAD_HAS_TIMEDJOIN_RELATIVE_NP)
+
+                if (!(err)) {
+                    IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...::pthread_timedjoin" << _relative_np << "(*detached, &value, &untilTime)");
                     forked = false;
                     return JoinSuccess;
                 } else {
                     switch(err) {
                     case EBUSY:
-                        IS_ERR_LOGGED_TRACE("...EBUSY err = "<< err << " on ::pthread_timedjoin_np(*detached, &value, &untilTime)");
+                        IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...EBUSY err = "<< err << " on ::pthread_timedjoin" << _relative_np << "(*detached, &value, &untilTime)");
                         return JoinBusy;
                     case ETIMEDOUT:
-                        IS_ERR_LOGGED_TRACE("...ETIMEDOUT err = "<< err << " on ::pthread_timedjoin_np(*detached, &value, &untilTime)");
+                        IF_ERR_LOGGED_DEBUG_TRACE(isLogged, isLogged, "...ETIMEDOUT err = "<< err << " on ::pthread_timedjoin" << _relative_np << "(*detached, &value, &untilTime)");
                         return JoinBusy;
                     case EINTR:
-                        IS_ERR_LOGGED_ERROR("...EINTR err = "<< err << " on ::pthread_timedjoin_np(*detached, &value, &untilTime)");
+                        IS_ERR_LOGGED_ERROR("...EINTR err = "<< err << " on ::pthread_timedjoin" << _relative_np << "(*detached, &value, &untilTime)");
                         return JoinInterrupted;
                     default:
-                        IS_ERR_LOGGED_ERROR("...failed err = "<< err << " on ::pthread_timedjoin_np(*detached, &value, &untilTime)");
+                        IS_ERR_LOGGED_ERROR("...failed err = "<< err << " on ::pthread_timedjoin" << _relative_np << "(*detached, &value, &untilTime)");
                         forked = false;
                         return JoinFailed;
                     }
