@@ -699,6 +699,13 @@ XOS_IF_ERR_LOGGED_PLAIN_TRACE(this->IsLogged(), this->IsErrLogged(), message)
 ///
 ///
 ///
+#if !defined(LOG_DEBUG_TRACE)
+#define LOG_DEBUG_TRACE(condition_, message_) XOS_LOG_DEBUG_TRACE(condition_, message_)
+#define LOG_PLAIN_DEBUG_TRACE(condition_, message_) XOS_LOG_PLAIN_DEBUG_TRACE(condition_, message_)
+#define LOG_FUNCTION_DEBUG_TRACE(condition_, message_) XOS_LOG_FUNCTION_DEBUG_TRACE(condition_, message_)
+#define LOG_LOCATION_DEBUG_TRACE(condition_, message_) XOS_LOG_LOCATION_DEBUG_TRACE(condition_, message_)
+#endif /// !defined(LOG_DEBUG_TRACE)
+
 #if !defined(LOG_TRACE)
 #define LOG_TRACE(message_) XOS_LOG_TRACE(message_)
 #define LOG_PLAIN_TRACE(message_) XOS_LOG_PLAIN_TRACE(message_)

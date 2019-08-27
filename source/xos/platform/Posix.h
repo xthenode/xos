@@ -149,8 +149,8 @@ int pthread_cond_timedwait_relative_np
 #define __MAC_OS_X_VERSION_MAX_ALLOWED_NO_POSIX_SEM __MAC_10_9
 #else /*/ !defined(__MAC_OS_X_VERSION_MAX_ALLOWED_NO_POSIX_SEM) /*/
 #endif /*/ !defined(__MAC_OS_X_VERSION_MAX_ALLOWED_NO_POSIX_SEM) /*/
-#if (__MAC_OS_X_VERSION_MAX_ALLOWED <= __MAC_OS_X_VERSION_MAX_ALLOWED_NO_POSIX_SEM)
 #include <semaphore.h>
+#if (__MAC_OS_X_VERSION_MAX_ALLOWED <= __MAC_OS_X_VERSION_MAX_ALLOWED_NO_POSIX_SEM)
 #define sem_t posix_sem_t
 #define sem_close posix_sem_close
 #define sem_destroy posix_sem_destroy
