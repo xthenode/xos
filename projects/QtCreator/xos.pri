@@ -56,7 +56,6 @@ xos_DEFINES += RELEASE_BUILD
 # xos INCLUDEPATH
 #
 xos_INCLUDEPATH += \
-$${XOS_SRC}/xos/platform/posix/microsoft/windows \
 $${XOS_SRC} \
 $${build_xos_INCLUDEPATH} \
 
