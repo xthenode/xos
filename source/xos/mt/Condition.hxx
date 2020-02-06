@@ -59,10 +59,10 @@ template
  class TLogged = LoggedT<TSignaled>,
  class TImplements = CreatorT<TLogged> >
 
-class _EXPORT_CLASS ConditionT: virtual public TImplements {
+class _EXPORTED_ ConditionT: virtual public TImplements {
 public:
     typedef TImplements Implements;
-}; /// class _EXPORT_CLASS ConditionT
+}; /// class _EXPORTED_ ConditionT
 typedef ConditionT<> Condition;
 
 namespace implemented {
@@ -75,10 +75,10 @@ template
  class TAttacher = AttacherT<TAttached, TUnattached, VUnattached, mt::Condition>,
  class TImplements = TAttacher>
 
-class _EXPORT_CLASS ConditionT: virtual public TImplements {
+class _EXPORTED_ ConditionT: virtual public TImplements {
 public:
     typedef TImplements Implements;
-}; /// class _EXPORT_CLASS ConditionT
+}; /// class _EXPORTED_ ConditionT
 typedef ConditionT<> Condition;
 } /// namespace implemented
 
@@ -95,7 +95,7 @@ template
  class TCreated = CreatedT<TAttached, TUnattached, VUnattached, TImplement, TAttachedT>,
  class TImplements = TImplement, class TExtends = TCreated>
 
-class _EXPORT_CLASS ConditionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ConditionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -169,7 +169,7 @@ public:
         }
         return detached;
     }
-}; /// class _EXPORT_CLASS ConditionT
+}; /// class _EXPORTED_ ConditionT
 typedef ConditionT<> Condition;
 } /// namespace extended
 
@@ -185,7 +185,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TCondition>
 
-class _EXPORT_CLASS ConditionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ConditionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -259,7 +259,7 @@ public:
         }
         return false;
     }
-}; /// class _EXPORT_CLASS ConditionT
+}; /// class _EXPORTED_ ConditionT
 typedef ConditionT<> Condition;
 } /// namespace derived
 

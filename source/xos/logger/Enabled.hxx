@@ -32,7 +32,7 @@ typedef Unlocked EnabledTImplements;
 ///  Class: EnabledT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = EnabledTImplements>
-class _EXPORT_CLASS EnabledT: virtual public TImplements {
+class _EXPORTED_ EnabledT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 

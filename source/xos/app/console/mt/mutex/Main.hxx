@@ -42,7 +42,7 @@ namespace mutex {
 template 
 <class TImplements = MainOpt::Implements, class TExtends = MainOpt>
 
-class _EXPORT_CLASS MainT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -132,7 +132,7 @@ protected:
         int err = RunT< ::xos::mt::os::Mutex >(argc, argv, env);
         return err;
     }
-}; /// class _EXPORT_CLASS MainT
+}; /// class _EXPORTED_ MainT
 typedef MainT<> Main;
 
 } /// namespace mutex

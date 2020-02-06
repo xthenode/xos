@@ -67,7 +67,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS JoinExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ JoinExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -96,7 +96,7 @@ typedef JoinExceptionT<> JoinException;
 ///////////////////////////////////////////////////////////////////////
 template
 <class TJoinException = JoinException, class TImplements = ImplementBase>
-class _EXPORT_CLASS JoinedT: virtual public TImplements {
+class _EXPORTED_ JoinedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef TJoinException JoinException;
@@ -159,7 +159,7 @@ typedef JoinedT<> Joined;
 ///  Class: JoinT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Joined, class TExtends = Base>
-class _EXPORT_CLASS JoinT: virtual public TImplements, public TExtends {
+class _EXPORTED_ JoinT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -192,7 +192,7 @@ typedef JoinT<> Join;
 ///  Class: TryJoinT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Joined, class TExtends = Base>
-class _EXPORT_CLASS TryJoinT: virtual public TImplements, public TExtends {
+class _EXPORTED_ TryJoinT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

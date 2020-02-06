@@ -65,7 +65,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS LockExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ LockExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -94,7 +94,7 @@ typedef ImplementBase LockedTImplements;
 ///  Class: LockedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = LockedTImplements>
-class _EXPORT_CLASS LockedT: virtual public TImplements {
+class _EXPORTED_ LockedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -121,7 +121,7 @@ typedef Locked UnlockedTImplements;
 ///  Class: UnlockedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = UnlockedTImplements>
-class _EXPORT_CLASS UnlockedT: virtual public TImplements {
+class _EXPORTED_ UnlockedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -150,7 +150,7 @@ typedef Base LockTExtends;
 ///////////////////////////////////////////////////////////////////////
 template 
 <class TImplements = LockTImplements, class TExtends = LockTExtends>
-class _EXPORT_CLASS LockT: virtual public TImplements, public TExtends {
+class _EXPORTED_ LockT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

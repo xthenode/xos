@@ -63,11 +63,11 @@ namespace mt {
 ///  Class: ThreadJoinedT
 ///////////////////////////////////////////////////////////////////////
 template <class TRan = Ran, class TSuspended = Suspended, class TJoined = Joined>
-class _EXPORT_CLASS ThreadJoinedT
+class _EXPORTED_ ThreadJoinedT
 : virtual public TRan, virtual public TSuspended, virtual public TJoined {
 public:
     typedef TRan Ran;
-}; /// class _EXPORT_CLASS ThreadJoinedT
+}; /// class _EXPORTED_ ThreadJoinedT
 typedef ThreadJoinedT<> ThreadJoined;
 
 ///////////////////////////////////////////////////////////////////////
@@ -78,11 +78,11 @@ template
  class TLogged = LoggedT<TJoined>, 
  class TImplements = CreatorT<TLogged> >
 
-class _EXPORT_CLASS ThreadT: virtual public TImplements {
+class _EXPORTED_ ThreadT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef typename Implements::Ran Ran;
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 typedef ThreadT<> Thread;
 
 namespace implemented {
@@ -95,7 +95,7 @@ template
  class TAttacher = AttacherT<TAttached, TUnattached, VUnattached, mt::Thread>,
  class TImplements = TAttacher>
 
-class _EXPORT_CLASS ThreadT: virtual public TImplements {
+class _EXPORTED_ ThreadT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -183,7 +183,7 @@ public:
         }
         return JoinFailed; 
     }
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 typedef ThreadT<> Thread;
 } /// namespace implemented
 
@@ -200,7 +200,7 @@ template
  class TCreated = CreatedT<TAttached, TUnattached, VUnattached, TImplement, TAttachedT>,
  class TImplements = TImplement, class TExtends = TCreated>
 
-class _EXPORT_CLASS ThreadT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ThreadT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -364,7 +364,7 @@ public:
 protected:
     Ran& _ran;
     bool _forked;
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 typedef ThreadT<> Thread;
 } /// namespace extended
 
@@ -380,7 +380,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TThread>
 
-class _EXPORT_CLASS ThreadT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ThreadT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -427,7 +427,7 @@ private:
 public:
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 typedef ThreadT<> Thread;
 } /// namespace derived
 

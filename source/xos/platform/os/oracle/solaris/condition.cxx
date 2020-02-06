@@ -27,7 +27,7 @@ namespace mt {
 namespace oracle {
 namespace solaris {
 
-class _EXPORT_CLASS ConditionFriend {
+class _EXPORTED_ ConditionFriend {
 public:
     ConditionFriend(const Condition& condition): _condition(condition) {
     }

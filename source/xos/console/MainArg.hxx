@@ -31,7 +31,7 @@ namespace console {
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Io>
 
-class _EXPORT_CLASS MainArgT: virtual public TImplements {
+class _EXPORTED_ MainArgT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     
@@ -142,7 +142,7 @@ typedef MainArg MainImplementTImplements;
 ///  Class: MainImplementT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = MainImplementTImplements>
-class _EXPORT_CLASS MainImplementT: virtual public TImplements {
+class _EXPORTED_ MainImplementT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     

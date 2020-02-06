@@ -35,7 +35,7 @@ namespace mutex {
 template 
 <class TImplements = mt::Main::Implements, class TExtends = mt::Main>
 
-class _EXPORT_CLASS MainOptT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainOptT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -49,7 +49,7 @@ private:
     }
 
 protected:
-}; /// class _EXPORT_CLASS MainOptT
+}; /// class _EXPORTED_ MainOptT
 typedef MainOptT<> MainOpt;
 
 } /// namespace mutex

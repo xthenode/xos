@@ -36,7 +36,7 @@ typedef Handle MutexExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Mutex
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Mutex: virtual public MutexImplements, public MutexExtends {
+class _EXPORTED_ Mutex: virtual public MutexImplements, public MutexExtends {
 public:
     typedef MutexImplements Implements;
     typedef MutexExtends Extends;
@@ -102,7 +102,7 @@ public:
 
 protected:
     ::xos::mt::os::Mutex _mutex;
-}; /// class _EXPORT_CLASS Mutex
+}; /// class _EXPORTED_ Mutex
 
 } /// namespace windows
 } /// namespace microsoft

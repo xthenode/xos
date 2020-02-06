@@ -40,7 +40,7 @@ template
 ///////////////////////////////////////////////////////////////////////
 ///  Class: ThreadT
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS ThreadT: public TExtends {
+class _EXPORTED_ ThreadT: public TExtends {
 public:
     typedef TExtends Extends;
     typedef TStartAddress StartAddress;
@@ -72,7 +72,7 @@ protected:
 protected:
     StartAddress _startAddress;
     Parameter _parameter;
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 typedef DWORD (WINAPI *StartAddress)(LPVOID);
 typedef ThreadT<StartAddress, LPVOID, DWORD> Thread;
 } /// namespace internal
@@ -82,7 +82,7 @@ typedef ThreadT<StartAddress, LPVOID, DWORD> Thread;
 ///////////////////////////////////////////////////////////////////////
 template 
 <class TThread, class TImplements = Handle::Implements, class TExtends = Handle>
-class _EXPORT_CLASS ThreadT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ThreadT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -145,14 +145,14 @@ public:
     ///////////////////////////////////////////////////////////////////////
 protected:
     TThread _thread;
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 
 typedef ThreadT<internal::Thread> ThreadExtends;
 typedef ThreadExtends::Implements ThreadImplements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Thread
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Thread: virtual public ThreadImplements, public ThreadExtends {
+class _EXPORTED_ Thread: virtual public ThreadImplements, public ThreadExtends {
 public:
     typedef ThreadImplements Implements;
     typedef ThreadExtends Extends;
@@ -174,13 +174,13 @@ private:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-}; /// class _EXPORT_CLASS Thread
+}; /// class _EXPORTED_ Thread
 
 namespace crt {
 namespace internal {
 /*
 typedef mt::posix::Thread ThreadExtends;
-class _EXPORT_CLASS Thread: public ThreadExtends {
+class _EXPORTED_ Thread: public ThreadExtends {
 public:
     typedef ThreadExtends Extends;
     Thread(unsigned ( __stdcall *startAddress )( void * ), void *arglist)
@@ -199,7 +199,7 @@ protected:
     }
     unsigned ( __stdcall *_startAddress )( void * );
     void *_arglist;
-}; /// class _EXPORT_CLASS Thread
+}; /// class _EXPORTED_ Thread
 */
 typedef unsigned (__stdcall *StartAddress)(void*);
 typedef windows::internal::ThreadT<StartAddress, void*, unsigned> Thread;
@@ -211,7 +211,7 @@ typedef Handle ThreadExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Thread
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Thread: virtual public ThreadImplements, public ThreadExtends {
+class _EXPORTED_ Thread: virtual public ThreadImplements, public ThreadExtends {
 public:
     typedef ThreadImplements Implements;
     typedef ThreadExtends Extends;
@@ -272,14 +272,14 @@ public:
 
 protected:
     internal::Thread _thread;
-}; /// class _EXPORT_CLASS Thread
+}; /// class _EXPORTED_ Thread
 */
 typedef ThreadT<internal::Thread> ThreadExtends;
 typedef ThreadExtends::Implements ThreadImplements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Thread
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Thread: virtual public ThreadImplements, public ThreadExtends {
+class _EXPORTED_ Thread: virtual public ThreadImplements, public ThreadExtends {
 public:
     typedef ThreadImplements Implements;
     typedef ThreadExtends Extends;
@@ -301,7 +301,7 @@ private:
     }
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-}; /// class _EXPORT_CLASS Thread
+}; /// class _EXPORTED_ Thread
 } /// namespace crt
 
 } /// namespace windows

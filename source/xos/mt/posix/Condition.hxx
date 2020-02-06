@@ -115,7 +115,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TCondition>
 
-class _EXPORT_CLASS ConditionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ConditionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -541,7 +541,7 @@ protected:
     bool* _signaled;
     pthread_mutex_t* _mutex;
     pthread_cond_t _cond;
-}; /// class _EXPORT_CLASS ConditionT
+}; /// class _EXPORTED_ ConditionT
 typedef ConditionT<> Condition;
 
 } /// namespace posix

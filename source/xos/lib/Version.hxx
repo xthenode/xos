@@ -23,6 +23,9 @@
 
 #include "xos/base/String.hxx"
 
+#define XOS_LIB_VERSION_NAME_SEPARATOR "-"
+#define XOS_LIB_VERSION_NUMBER_SEPARATOR "."
+
 namespace xos {
 namespace lib {
 
@@ -35,7 +38,7 @@ template
  class TString = StringT<TChar>,
  class TImplements = VersionTImplements>
 
-class _EXPORT_CLASS VersionT: virtual public TImplements {
+class _EXPORTED_ VersionT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef TString string_t;
@@ -55,10 +58,10 @@ public:
         return string_t("version");
     }
     virtual string_t NameSeparator() const {
-        return string_t("-");
+        return string_t(XOS_LIB_VERSION_NAME_SEPARATOR);
     }
     virtual string_t MajorSeparator() const {
-        return string_t(".");
+        return string_t(XOS_LIB_VERSION_NUMBER_SEPARATOR);
     }
     virtual string_t MinorSeparator() const {
         return MajorSeparator();

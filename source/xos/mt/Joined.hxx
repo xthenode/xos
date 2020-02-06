@@ -39,7 +39,7 @@ template
 <class TExtends = os::Thread, 
  class TImplements = typename TExtends::Implements>
 
-class _EXPORT_CLASS JoinedT: virtual public TImplements, public TExtends {
+class _EXPORTED_ JoinedT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

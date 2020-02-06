@@ -65,7 +65,7 @@ namespace mt {
 namespace oracle {
 namespace solaris {
 
-class _EXPORT_CLASS ConditionFriend;
+class _EXPORTED_ ConditionFriend;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: ConditionT
 ///////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TCondition>
 
-class _EXPORT_CLASS ConditionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ConditionT: virtual public TImplements, public TExtends {
 public:
     friend class ConditionFriend;
     typedef TImplements Implements;
@@ -380,7 +380,7 @@ protected:
     bool* _signaled;
     mutex_t* _mutex;
     cond_t _cond;
-}; /// class _EXPORT_CLASS ConditionT
+}; /// class _EXPORTED_ ConditionT
 typedef ConditionT<> Condition;
 
 } /// namespace solaris

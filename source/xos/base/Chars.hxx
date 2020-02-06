@@ -33,7 +33,7 @@ template
 <typename TChar = char,
  typename TEnd = TChar, TEnd VEnd = 0,
  class TImplements = CharsTImplements>
-class _EXPORT_CLASS CharsT: virtual public TImplements {
+class _EXPORTED_ CharsT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef CharsT Derives;
@@ -43,14 +43,14 @@ public:
     static const end_t endof = VEnd;
     typedef char_t (*to_case_t)(char_t c);
 
-    class _EXPORT_CLASS from_signed_t {
+    class _EXPORTED_ from_signed_t {
     public:
         from_signed_t(signed from): _from(from) {}
         operator signed() const { return _from; }
     protected:
         signed _from;
     };
-    class _EXPORT_CLASS from_unsigned_t {
+    class _EXPORTED_ from_unsigned_t {
     public:
         from_unsigned_t(unsigned from): _from(from) {}
         operator unsigned() const { return _from; }

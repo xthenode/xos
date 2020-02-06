@@ -67,7 +67,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS AttachExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AttachExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -99,7 +99,7 @@ template
  typename TUnattached = int, TUnattached VUnattached = 0,
  class TImplements = ImplementBase>
 
-class _EXPORT_CLASS AttacherT: virtual public TImplements {
+class _EXPORTED_ AttacherT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -138,7 +138,7 @@ template
  class TImplement = ImplementBase, class TExtends = Base,
  class TImplements = AttacherT<TAttached, TUnattached, VUnattached, TImplement> >
 
-class _EXPORT_CLASS AttachedT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AttachedT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

@@ -57,7 +57,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS SignalExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SignalExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -85,7 +85,7 @@ typedef SignalExceptionT<> SignalException;
 ///  Class: SignaledT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Waited>
-class _EXPORT_CLASS SignaledT: virtual public TImplements {
+class _EXPORTED_ SignaledT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -101,7 +101,7 @@ public:
     virtual SignalStatus UntimedSignal() { 
         return SignalFailed; 
     }
-}; /// class _EXPORT_CLASS SignaledT
+}; /// class _EXPORTED_ SignaledT
 typedef SignaledT<> Signaled;
 
 ///////////////////////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ typedef SignaledT<> Signaled;
 ///////////////////////////////////////////////////////////////////////
 template 
 <class TImplements = Signaled, class TExtends = Base>
-class _EXPORT_CLASS SignalT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SignalT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

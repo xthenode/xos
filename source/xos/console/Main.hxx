@@ -33,7 +33,7 @@ template
 <class TMainImplement = MainImplement,
  class TImplements = TMainImplement, class TExtends = Base>
 
-class _EXPORT_CLASS MainT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

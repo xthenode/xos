@@ -36,7 +36,7 @@ template
 <class TImplements = MainOpt, 
  class TExtends = console::MainT<console::MainImplement, MainOpt> >
 
-class _EXPORT_CLASS MainT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

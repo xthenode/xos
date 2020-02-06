@@ -33,7 +33,7 @@ typedef Enabled OutputTImplements;
 ///  Class: OutputT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = OutputTImplements>
-class _EXPORT_CLASS OutputT: virtual public TImplements {
+class _EXPORTED_ OutputT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef Location::string_t string_t;

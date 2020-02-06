@@ -64,7 +64,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS AllocateExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AllocateExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -93,7 +93,7 @@ typedef ImplementBase AllocatorTImplements;
 ///  Class: AllocatorT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = AllocatorTImplements>
-class _EXPORT_CLASS AllocatorT: virtual public TImplements {
+class _EXPORTED_ AllocatorT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 };
@@ -105,7 +105,7 @@ typedef Base AllocatedTExtends;
 ///  Class: AllocatedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = AllocatedTImplements, class TExtends = AllocatedTExtends>
-class _EXPORT_CLASS AllocatedT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AllocatedT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

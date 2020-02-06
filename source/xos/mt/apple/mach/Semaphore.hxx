@@ -58,7 +58,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TSemaphore>
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SemaphoreT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -262,7 +262,7 @@ public:
     ///////////////////////////////////////////////////////////////////////
 protected:
     semaphore_t _semaphore;
-}; /// class _EXPORT_CLASS SemaphoreT
+}; /// class _EXPORTED_ SemaphoreT
 typedef SemaphoreT<> Semaphore;
 
 #if !defined(_XOS_MT_APPLE_MACH_SEMAPHORE_CLASS_)

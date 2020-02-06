@@ -32,7 +32,7 @@ typedef String FunctionTExtends;
 ///  Class: FunctionT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = FunctionTImplements, class TExtends = FunctionTExtends>
-class _EXPORT_CLASS FunctionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ FunctionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -54,7 +54,7 @@ typedef String LocationTExtends;
 ///  Class: LocationT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = LocationTImplements, class TExtends = LocationTExtends>
-class _EXPORT_CLASS LocationT: virtual public TImplements, public TExtends {
+class _EXPORTED_ LocationT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -98,7 +98,7 @@ typedef String MessageTExtends;
 ///  Class: MessageT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = MessageTImplements, class TExtends = MessageTExtends>
-class _EXPORT_CLASS MessageT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MessageT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

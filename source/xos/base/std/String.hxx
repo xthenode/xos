@@ -39,7 +39,7 @@ template
  class TSStream = ::std::basic_stringstream<TChar>,
  class TImplements = TChars, class TExtends = TString>
 
-class _EXPORT_CLASS StringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ StringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -144,7 +144,7 @@ template
  class TString = std::based::StringT<TChar, TEnd, VEnd, TChars>,
  class TImplements = TChars, class TExtends = TString>
 
-class _EXPORT_CLASS StringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ StringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -346,7 +346,7 @@ template
  class TString = xos::derived::StringT<TChar, TEnd, VEnd, TChars>,
  class TImplements = TChars, class TExtends = TString>
 
-class _EXPORT_CLASS StringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ StringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

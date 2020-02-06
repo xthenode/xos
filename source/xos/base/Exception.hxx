@@ -50,7 +50,7 @@ inline TString ExceptionStatusToString(ExceptionStatus status) {
 template 
 <typename TStatus = ExceptionStatus, class TString = String,
  class TImplements = ImplementBase, class TExtends = Base>
-class _EXPORT_CLASS ExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

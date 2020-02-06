@@ -95,7 +95,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TThread>
 
-class _EXPORT_CLASS ThreadT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ThreadT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -360,7 +360,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////
 protected:
     pthread_t _thread;
-}; /// class _EXPORT_CLASS ThreadT
+}; /// class _EXPORTED_ ThreadT
 typedef ThreadT<> Thread;
 
 } /// namespace posix

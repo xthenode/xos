@@ -69,7 +69,7 @@ template
 <class TImplements = SleepExceptionTImplements,
  class TExtends = SleepExceptionTExtends>
 
-class _EXPORT_CLASS SleepExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SleepExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -101,7 +101,7 @@ typedef ImplementBase SleeperTImplements;
 ///  Class: SleeperT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = SleeperTImplements>
-class _EXPORT_CLASS SleeperT: virtual public TImplements {
+class _EXPORTED_ SleeperT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     ///////////////////////////////////////////////////////////////////////

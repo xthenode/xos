@@ -65,7 +65,7 @@ template
 <typename TStatus = SuspendStatus, class TString = String, 
  class TImplements = Exception::Implements, class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS SuspendExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SuspendExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -94,7 +94,7 @@ typedef SuspendExceptionT<> SuspendException;
 ///////////////////////////////////////////////////////////////////////
 template 
 <class TSuspendException = SuspendException, class TImplements = ImplementBase>
-class _EXPORT_CLASS SuspendedT: virtual public TImplements {
+class _EXPORTED_ SuspendedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef TSuspendException SuspendException;
@@ -153,7 +153,7 @@ typedef SuspendedT<> Suspended;
 ///  Class: SuspendT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Suspended, class TExtends = Base>
-class _EXPORT_CLASS SuspendT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SuspendT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

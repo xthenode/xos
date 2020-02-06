@@ -36,7 +36,7 @@ template
 <class TExtends = os::Semaphore, 
  class TImplements = typename TExtends::Implements>
 
-class _EXPORT_CLASS AcquiredT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AcquiredT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -51,7 +51,7 @@ public:
     }
     virtual ~AcquiredT() {
     }
-}; /// class _EXPORT_CLASS AcquiredT
+}; /// class _EXPORTED_ AcquiredT
 
 } /// namespace mt
 } /// namespace xos

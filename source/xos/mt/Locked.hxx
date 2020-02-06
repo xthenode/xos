@@ -36,7 +36,7 @@ template
 <class TExtends = os::Mutex, 
  class TImplements = typename TExtends::Implements>
 
-class _EXPORT_CLASS LockedT: virtual public TImplements, public TExtends {
+class _EXPORTED_ LockedT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

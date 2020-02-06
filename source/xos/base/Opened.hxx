@@ -65,7 +65,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS OpenExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ OpenExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -94,7 +94,7 @@ typedef ImplementBase OpenerTImplements;
 ///  Class: OpenerT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = OpenerTImplements>
-class _EXPORT_CLASS OpenerT: virtual public TImplements {
+class _EXPORTED_ OpenerT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -141,7 +141,7 @@ template
  class TImplements = AttacherT<TAttached, TUnattached, VUnattached, TImplement>,
  class TExtends = AttachedT<TAttached, TUnattached, VUnattached, TImplements, TExtend> >
 
-class _EXPORT_CLASS OpenedT: virtual public TImplements, public TExtends {
+class _EXPORTED_ OpenedT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

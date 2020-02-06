@@ -34,7 +34,7 @@ typedef MainOpt MainTExtends;
 ///  Class: MainT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = MainTImplements, class TExtends = MainTExtends>
-class _EXPORT_CLASS MainT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -122,7 +122,7 @@ protected:
 
 protected:
     mseconds_t _sleep, _timeout;
-}; /// class _EXPORT_CLASS MainT
+}; /// class _EXPORTED_ MainT
 typedef MainT<> Main;
 
 } /// namespace mt

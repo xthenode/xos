@@ -110,7 +110,7 @@ namespace getopt {
 template 
 <typename TOption = struct option, class TImplements = console::MainImplement>
 
-class _EXPORT_CLASS MainOptT: virtual public TImplements {
+class _EXPORTED_ MainOptT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -210,7 +210,7 @@ typedef MainOptT<> MainOptImplements;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: MainOpt
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS MainOpt: virtual public MainOptImplements {
+class _EXPORTED_ MainOpt: virtual public MainOptImplements {
 public:
     typedef MainOptImplements Implements;
 

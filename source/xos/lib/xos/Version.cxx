@@ -31,7 +31,7 @@ typedef lib::Version VersionTImplements;
 ///  Class: VersionT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = VersionTImplements>
-class _EXPORT_CLASS VersionT: virtual public TImplements {
+class _EXPORTED_ VersionT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     typedef typename Implements::string_t string_t;

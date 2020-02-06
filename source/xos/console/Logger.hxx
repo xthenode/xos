@@ -35,7 +35,7 @@ typedef logger::Base LoggerTExtends;
 template 
 <class TImplements = LoggerTImplements, class TExtends = LoggerTExtends>
 
-class _EXPORT_CLASS LoggerT: virtual public TImplements, public TExtends {
+class _EXPORTED_ LoggerT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

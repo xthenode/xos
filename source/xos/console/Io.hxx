@@ -39,7 +39,7 @@ template
  class TString = stringns::derived::StringT<TChar, TEndChar, VEndChar, TChars>,
  class TImplements = IoTImplements>
 
-class _EXPORT_CLASS IoT: virtual public TImplements {
+class _EXPORTED_ IoT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     
@@ -414,7 +414,7 @@ typedef Base IoTExtends;
 template 
 <class TImplements = IoTImplements, class TExtends = IoTExtends>
 
-class _EXPORT_CLASS IoT: virtual public TImplements, public TExtends {
+class _EXPORTED_ IoT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

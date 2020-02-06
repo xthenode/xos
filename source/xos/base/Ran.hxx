@@ -30,12 +30,12 @@ typedef Implement RanTImplements;
 ///  Class: RanT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = RanTImplements>
-class _EXPORT_CLASS RanT: virtual public TImplements {
+class _EXPORTED_ RanT: virtual public TImplements {
 public:
     typedef TImplements Implements;
     virtual void Run() {
     }
-}; /// class _EXPORT_CLASS RanT
+}; /// class _EXPORTED_ RanT
 typedef RanT<> Ran;
 
 } /// namespace xos

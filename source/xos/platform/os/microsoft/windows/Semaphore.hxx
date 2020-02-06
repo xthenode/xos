@@ -35,7 +35,7 @@ typedef Handle SemaphoreExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Semaphore
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Semaphore: virtual public SemaphoreImplements, public SemaphoreExtends {
+class _EXPORTED_ Semaphore: virtual public SemaphoreImplements, public SemaphoreExtends {
 public:
     typedef Implement Implements;
     typedef Extend Extends;
@@ -106,7 +106,7 @@ public:
     
 protected:
     ::xos::mt::os::Semaphore _semaphore;
-}; /// class _EXPORT_CLASS Class
+}; /// class _EXPORTED_ Class
 
 } /// namespace windows
 } /// namespace microsoft

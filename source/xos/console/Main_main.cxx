@@ -33,6 +33,7 @@ namespace console {
 ///////////////////////////////////////////////////////////////////////
 int main(int argc, char** argv, char** env) {
     int err = 1;
+
     ERR_LOG_DEBUG("try {...");
     try {
         ::xos::mt::Locked locked(false, true);

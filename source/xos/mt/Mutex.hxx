@@ -55,10 +55,10 @@ template
  class TLogged = LoggedT<TLocked>,
  class TImplements = CreatorT<TLogged> >
 
-class _EXPORT_CLASS MutexT: virtual public TImplements {
+class _EXPORTED_ MutexT: virtual public TImplements {
 public:
     typedef TImplements Implements;
-}; /// class _EXPORT_CLASS MutexT
+}; /// class _EXPORTED_ MutexT
 typedef MutexT<> Mutex;
 
 namespace implemented {
@@ -71,10 +71,10 @@ template
  class TAttacher = AttacherT<TAttached, TUnattached, VUnattached, mt::Mutex>,
  class TImplements = TAttacher>
 
-class _EXPORT_CLASS MutexT: virtual public TImplements {
+class _EXPORTED_ MutexT: virtual public TImplements {
 public:
     typedef TImplements Implements;
-}; /// class _EXPORT_CLASS MutexT
+}; /// class _EXPORTED_ MutexT
 typedef MutexT<> Mutex;
 } /// namespace implemented
 
@@ -91,7 +91,7 @@ template
  class TCreated = CreatedT<TAttached, TUnattached, VUnattached, TImplement, TAttachedT>,
  class TImplements = TImplement, class TExtends = TCreated>
 
-class _EXPORT_CLASS MutexT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MutexT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -165,7 +165,7 @@ public:
         }
         return detached;
     }
-}; /// class _EXPORT_CLASS MutexT
+}; /// class _EXPORTED_ MutexT
 typedef MutexT<> Mutex;
 } /// namespace extended
 
@@ -181,7 +181,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TMutex>
 
-class _EXPORT_CLASS MutexT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MutexT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -256,7 +256,7 @@ protected:
         Error error = (this != detached)?ErrorFailed:ErrorSuccess;
         return error;
     }
-}; /// class _EXPORT_CLASS MutexT
+}; /// class _EXPORTED_ MutexT
 typedef MutexT<> Mutex;
 } /// namespace derived
 

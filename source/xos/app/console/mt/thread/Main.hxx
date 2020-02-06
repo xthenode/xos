@@ -42,7 +42,7 @@ namespace thread {
 template 
 <class TRan = ::xos::Ran, class TImplements = MainOpt::Implements, class TExtends = MainOpt>
 
-class _EXPORT_CLASS MainT: virtual public TRan, virtual public TImplements, public TExtends {
+class _EXPORTED_ MainT: virtual public TRan, virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -138,7 +138,7 @@ protected:
         int err = RunT< ::xos::mt::derived::Thread >(argc, argv, env);
         return err;
     }
-}; /// class _EXPORT_CLASS MainT
+}; /// class _EXPORTED_ MainT
 typedef MainT<> Main;
 
 } /// namespace thread

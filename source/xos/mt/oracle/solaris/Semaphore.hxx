@@ -77,7 +77,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TSemaphore>
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SemaphoreT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -303,7 +303,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////
 protected:
     sema_t _sema;
-}; /// class _EXPORT_CLASS SemaphoreT
+}; /// class _EXPORTED_ SemaphoreT
 typedef SemaphoreT<> Semaphore;
 
 } /// namespace solaris

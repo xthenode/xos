@@ -43,7 +43,7 @@ enum {
 ///  Class: SleepT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Implement, class TExtends = Extend>
-class _EXPORT_CLASS SleepT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SleepT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -69,7 +69,7 @@ protected:
 #endif /// !defined(WINDOWS)
         return SleepSuccess;
     }
-}; /// class _EXPORT_CLASS SleepT
+}; /// class _EXPORTED_ SleepT
 typedef SleepT<> Sleep;
 
 } /// namespace os

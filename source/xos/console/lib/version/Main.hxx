@@ -38,12 +38,13 @@ template
 <class TVersion = ::xos::lib::xene::Version, 
  class TImplements = MainTImplements, class TExtends = MainTExtends>
 
-class _EXPORT_CLASS MainT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
 
     typedef TVersion version_t;
+    typedef typename Extends::string_t string_t;
     typedef typename Extends::char_t char_t;
 
     MainT() {

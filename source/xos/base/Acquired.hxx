@@ -70,7 +70,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS AcquireExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AcquireExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -98,7 +98,7 @@ typedef AcquireExceptionT<> AcquireException;
 ///  Class: AcquiredT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = ImplementBase>
-class _EXPORT_CLASS AcquiredT: virtual public TImplements {
+class _EXPORTED_ AcquiredT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -133,7 +133,7 @@ typedef AcquiredT<> Acquired;
 ///  Class: ReleasedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Acquired>
-class _EXPORT_CLASS ReleasedT: virtual public TImplements {
+class _EXPORTED_ ReleasedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -169,7 +169,7 @@ typedef ReleasedT<> Released;
 ///////////////////////////////////////////////////////////////////////
 template
 <class TImplements = Released, class TExtends = Base>
-class _EXPORT_CLASS AcquireT: virtual public TImplements, public TExtends {
+class _EXPORTED_ AcquireT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -205,7 +205,7 @@ typedef AcquireT<> Acquire;
 ///////////////////////////////////////////////////////////////////////
 template
 <class TImplements = Released, class TExtends = Base>
-class _EXPORT_CLASS TryAcquireT: virtual public TImplements, public TExtends {
+class _EXPORTED_ TryAcquireT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -234,7 +234,7 @@ typedef TryAcquireT<> TryAcquire;
 ///  Class: ReleaseT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = Released, class TExtends = Base>
-class _EXPORT_CLASS ReleaseT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ReleaseT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

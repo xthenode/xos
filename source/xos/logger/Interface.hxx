@@ -31,7 +31,7 @@ typedef Output InterfaceTImplements;
 ///  Class: InterfaceT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = InterfaceTImplements>
-class _EXPORT_CLASS InterfaceT: virtual public TImplements {
+class _EXPORTED_ InterfaceT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -120,7 +120,7 @@ typedef xos::Base BaseTExtends;
 template 
 <class TImplements = BaseTImplements, class TExtends = BaseTExtends>
 
-class _EXPORT_CLASS BaseT: virtual public TImplements, public TExtends {
+class _EXPORTED_ BaseT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

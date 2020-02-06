@@ -55,10 +55,10 @@ template
  class TLogged = LoggedT<TAcquired>,
  class TImplements = CreatorT<TLogged> >
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements {
+class _EXPORTED_ SemaphoreT: virtual public TImplements {
 public:
     typedef TImplements Implements;
-}; /// class _EXPORT_CLASS SemaphoreT
+}; /// class _EXPORTED_ SemaphoreT
 typedef SemaphoreT<> Semaphore;
 
 namespace implemented {
@@ -71,7 +71,7 @@ template
  class TAttacher = AttacherT<TAttached, TUnattached, VUnattached, mt::Semaphore>,
  class TImplements = TAttacher>
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements {
+class _EXPORTED_ SemaphoreT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -87,7 +87,7 @@ public:
         }
         return false; 
     }
-}; /// class _EXPORT_CLASS SemaphoreT
+}; /// class _EXPORTED_ SemaphoreT
 typedef SemaphoreT<> Semaphore;
 } /// namespace implemented
 
@@ -104,7 +104,7 @@ template
  class TCreated = CreatedT<TAttached, TUnattached, VUnattached, TImplement, TAttachedT>,
  class TImplements = TImplement, class TExtends = TCreated>
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SemaphoreT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -178,7 +178,7 @@ public:
         }
         return detached;
     }
-}; /// class _EXPORT_CLASS SemaphoreT
+}; /// class _EXPORTED_ SemaphoreT
 typedef SemaphoreT<> Semaphore;
 } /// namespace extended
 
@@ -194,7 +194,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TSemaphore>
 
-class _EXPORT_CLASS SemaphoreT: virtual public TImplements, public TExtends {
+class _EXPORTED_ SemaphoreT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -284,7 +284,7 @@ protected:
         Error error = (this != detached)?ErrorFailed:ErrorSuccess;
         return error;
     }
-}; /// class _EXPORT_CLASS SemaphoreT
+}; /// class _EXPORTED_ SemaphoreT
 typedef SemaphoreT<> Semaphore;
 } /// namespace derived
 

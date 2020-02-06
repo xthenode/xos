@@ -40,7 +40,7 @@ template
  <TError, VErrorSuccess, VErrorFailed, TAttached, TUnattached, VUnattached, TImplement>,
  class TImplements = TImplement, class TExtends = TMutex>
 
-class _EXPORT_CLASS MutexT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MutexT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -202,7 +202,7 @@ public:
         }
         return false;
     }
-}; /// class _EXPORT_CLASS MutexT
+}; /// class _EXPORTED_ MutexT
 typedef MutexT<> Mutex;
     
 } /// namespace windows

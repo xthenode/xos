@@ -32,7 +32,7 @@ typedef ImplementBase LoggedTImplements;
 ///  Class: LoggedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = LoggedTImplements>
-class _EXPORT_CLASS LoggedT: virtual public TImplements {
+class _EXPORTED_ LoggedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -64,7 +64,7 @@ typedef Base LoggedTExtends;
 ///  Class: LoggedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = LoggedTImplements, class TExtends = LoggedTExtends>
-class _EXPORT_CLASS LoggedT: virtual public TImplements, public TExtends {
+class _EXPORTED_ LoggedT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

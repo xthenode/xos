@@ -30,13 +30,13 @@ namespace posix {
 namespace microsoft {
 namespace windows {
 
-class _EXPORT_CLASS Handle;
-class _EXPORT_CLASS Mutex;
-class _EXPORT_CLASS Semaphore;
-class _EXPORT_CLASS Thread;
+class _EXPORTED_ Handle;
+class _EXPORTED_ Mutex;
+class _EXPORTED_ Semaphore;
+class _EXPORTED_ Thread;
 
 namespace crt {
-class _EXPORT_CLASS Thread;
+class _EXPORTED_ Thread;
 } /// namespace crt
 
 typedef Logged HandleImplements;
@@ -44,7 +44,7 @@ typedef extended::Logged HandleExtends;
 ///////////////////////////////////////////////////////////////////////
 ///  Class: Handle
 ///////////////////////////////////////////////////////////////////////
-class _EXPORT_CLASS Handle: virtual public HandleImplements, public HandleExtends {
+class _EXPORTED_ Handle: virtual public HandleImplements, public HandleExtends {
 public:
     typedef HandleImplements Implements;
     typedef HandleExtends Extends;
@@ -90,7 +90,7 @@ public:
     virtual crt::Thread* ToCrtThread() const {
         return ((crt::Thread*)0);
     }
-}; /// class _EXPORT_CLASS Handle
+}; /// class _EXPORTED_ Handle
 
 } /// namespace windows
 } /// namespace microsoft

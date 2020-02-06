@@ -37,7 +37,7 @@ template
  typename TSize = size_t, TSize VSize = XOS_ARRAY_DEFAULT_SIZE,
  class TImplements = ArrayTImplements, class TExtends = ArrayTExtends>
 
-class _EXPORT_CLASS ArrayT: virtual public TImplements, public TExtends {
+class _EXPORTED_ ArrayT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

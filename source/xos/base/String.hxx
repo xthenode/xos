@@ -36,7 +36,7 @@ template
  class TString = Base, size_t VDefaultSize = 128,
  class TImplements = TChars, class TExtends = TString>
 
-class _EXPORT_CLASS StringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ StringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -331,7 +331,7 @@ template
  class TExtend = derived::StringT<TChar, TEnd, VEnd, TChars, TString>,
  class TImplements = TChars, class TExtends = TExtend>
 
-class _EXPORT_CLASS StringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ StringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -367,7 +367,7 @@ public:
 template 
 <class TString = String,
  class TImplements = typename TString::Implements, class TExtends = TString>
-class _EXPORT_CLASS UnsignedToStringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ UnsignedToStringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -379,7 +379,7 @@ public:
     }
     virtual ~UnsignedToStringT() {
     }
-}; /// class _EXPORT_CLASS UnsignedToStringT
+}; /// class _EXPORTED_ UnsignedToStringT
 typedef UnsignedToStringT<String> UnsignedToString;
 typedef UnsignedToStringT<TString> UnsignedToTString;
 typedef UnsignedToStringT<WString> UnsignedToWString;
@@ -390,7 +390,7 @@ typedef UnsignedToStringT<WString> UnsignedToWString;
 template 
 <class TString = String,
  class TImplements = typename TString::Implements, class TExtends = TString>
-class _EXPORT_CLASS IntToStringT: virtual public TImplements, public TExtends {
+class _EXPORTED_ IntToStringT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -402,7 +402,7 @@ public:
     }
     virtual ~IntToStringT() {
     }
-}; /// class _EXPORT_CLASS IntToStringT
+}; /// class _EXPORTED_ IntToStringT
 typedef IntToStringT<String> IntToString;
 typedef IntToStringT<TString> IntToTString;
 typedef IntToStringT<WString> IntToWString;

@@ -70,7 +70,7 @@ template
  class TImplements = Exception::Implements, 
  class TExtends = ExceptionT<TStatus, TString, TImplements> >
 
-class _EXPORT_CLASS WaitExceptionT: virtual public TImplements, public TExtends {
+class _EXPORTED_ WaitExceptionT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -98,7 +98,7 @@ typedef WaitExceptionT<> WaitException;
 ///  Class: WaitedT
 ///////////////////////////////////////////////////////////////////////
 template <class TImplements = ImplementBase>
-class _EXPORT_CLASS WaitedT: virtual public TImplements {
+class _EXPORTED_ WaitedT: virtual public TImplements {
 public:
     typedef TImplements Implements;
 
@@ -141,7 +141,7 @@ typedef WaitedT<> Waited;
 ///////////////////////////////////////////////////////////////////////
 template 
 <class TImplements = Waited, class TExtends = Base>
-class _EXPORT_CLASS WaitT: virtual public TImplements, public TExtends {
+class _EXPORTED_ WaitT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -177,7 +177,7 @@ typedef WaitT<> Wait;
 ///////////////////////////////////////////////////////////////////////
 template
 <class TImplements = Waited, class TExtends = Base>
-class _EXPORT_CLASS TryWaitT: virtual public TImplements, public TExtends {
+class _EXPORTED_ TryWaitT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;

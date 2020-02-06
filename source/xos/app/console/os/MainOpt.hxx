@@ -96,7 +96,7 @@ namespace os {
 template 
 <class TImplements = Main::Implements, class TExtends = Main>
 
-class _EXPORT_CLASS MainOptT: virtual public TImplements, public TExtends {
+class _EXPORTED_ MainOptT: virtual public TImplements, public TExtends {
 public:
     typedef TImplements Implements;
     typedef TExtends Extends;
@@ -283,7 +283,7 @@ protected:
         argv = _argv;
         return _args;
     }
-}; /// class _EXPORT_CLASS MainOptT
+}; /// class _EXPORTED_ MainOptT
 typedef MainOptT<> MainOpt;
 
 } /// namespace os
